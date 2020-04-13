@@ -1,2 +1,2 @@
-# daliytest
+# dailytest
 daily test
