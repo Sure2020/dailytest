@@ -35,7 +35,7 @@ public class HelloController {
     UserService userService;
 
     @GetMapping("/test/aop")
-    public String test(Integer id) {
+    public String testController(Integer id) {
         return userService.getUserById(id);
     }
 }

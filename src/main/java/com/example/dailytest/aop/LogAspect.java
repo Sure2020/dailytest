@@ -33,7 +33,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogAspect {
     // 定义一个切入点
-    @Pointcut("execution(* com.example.dailytest.aop.*.*(..))")
+    //@Pointcut("execution(* com.example.dailytest.aop.*.*(..))")
+    @Pointcut("execution(* com.example.dailytest.aop.UserService.getUserById(..))")
     public void pc1(){
 
     }
@@ -53,10 +54,10 @@ public class LogAspect {
     }
 
     // 返回通知
-    @AfterReturning(value = "pc1()", returning = "result")
-    public void afterReturning(JoinPoint jp, Object result) {
+    @AfterReturning(value = "pc1()", returning = "testResult")
+    public void afterReturning(JoinPoint jp, Object testResult) {
         String name = jp.getSignature().getName();
-        System.out.println(name + "方法返回值为：" + result);
+        System.out.println(name + "方法返回值为：" + testResult);
     }
 
     // 异常通知

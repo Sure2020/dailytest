@@ -37,6 +37,7 @@ public class UserService {
         catch(InterruptedException e) {
             e.printStackTrace();
         }
-        return "hangge";
+
+        return "testing aop !!!";
     }
 }
