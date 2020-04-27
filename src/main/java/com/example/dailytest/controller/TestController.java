@@ -69,11 +69,20 @@ public class TestController {
         return "hello test";
     }
     @PostMapping("/test/create")
-    public String testCreate (@RequestBody JSONObject jsonObject){
+    public JSONObject testCreate (@RequestBody JSONObject jsonObject){
 
         System.out.println(jsonObject.getString("paramA"));
         System.out.println(jsonObject.getIntValue("paramB"));
-        return "testCreate";
+        //return "testCreate";
+        JSONObject resultObj = new JSONObject();
+        //resultObj.put("returnA", "returnA");
+        resultObj.put("code", 200);
+        JSONObject dataObj = new JSONObject();
+        dataObj.put("a","a");
+        dataObj.put("b", "b");
+        resultObj.put("msg", "SUCCESS");
+        resultObj.put("data", dataObj);
+        return resultObj;
     }
 
     @PostMapping("/test/modId")
