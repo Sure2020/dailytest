@@ -17,7 +17,7 @@ public class AepDeviceManagementDemo {
 	public void testApi() throws Exception {
 
 		//AepDeviceManagementClient client = AepDeviceManagementClient.newClient().build();
-		AepDeviceManagementClient client = AepDeviceManagementClient.newClient().appKey("eke3uNOLPfd").appSecret("wq0xibKkv1 ").build();
+		AepDeviceManagementClient client = AepDeviceManagementClient.newClient().appKey("eke3uNOLPfd").appSecret("wq0xibKkv1").build();
 
 		{
 			QueryDeviceListRequest request = new QueryDeviceListRequest();

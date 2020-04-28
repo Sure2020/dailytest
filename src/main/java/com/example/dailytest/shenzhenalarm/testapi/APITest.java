@@ -21,6 +21,7 @@ package com.example.dailytest.shenzhenalarm.testapi;
 import com.alibaba.fastjson.JSONObject;
 import com.ctg.ag.sdk.biz.AepDeviceCommandClient;
 import com.ctg.ag.sdk.biz.aep_device_command.CreateCommandRequest;
+import com.ctg.ag.sdk.biz.aep_device_command.CreateCommandResponse;
 import org.junit.Test;
 
 /**
@@ -39,17 +40,6 @@ public class APITest {
             CreateCommandRequest request = new CreateCommandRequest();
             // request.setParam..  	// set your request params here
             request.setParamMasterKey("4dd773bb798b4c39857b10b8d84c787e");
-            /*request.setParam("deviceId", "362b2c484dc04a65a9d99957e319ae78");
-            request.setParam("operator", "joinzn");
-            request.setParam("productId", 10035159);
-            request.setParam("ttl", 7800);
-            request.setParam("level", 2);
-            //request.setBody(byte[] test);
-            JSONObject contentObj = new JSONObject();
-            contentObj.put("CTRL_ALARM_FLG", "0");
-            request.setParam("content", contentObj);
-
-             */
             byte[] byteBody = buildRequstBody(
                     "362b2c484dc04a65a9d99957e319ae78",
                     "h3c",
@@ -64,27 +54,56 @@ public class APITest {
             request.setBody(byteBody);
 
             System.out.println("#############################");
-            System.out.println(client.CreateCommand(request));
+            CreateCommandResponse commandResponse = client.CreateCommand(request);
+            System.out.println(commandResponse);
+            int statusCode = commandResponse.getStatusCode();
+            if (statusCode == 200){
+                System.out.println("SENT");
+            }else{
+                System.out.println("FAILED");
+            }
             System.out.println("#############################");
         }
 
-        /*{
-            QueryCommandListRequest request = new QueryCommandListRequest();
-            // request.setParam..  	// set your request params here
-            System.out.println(client.QueryCommandList(request));
-        }
+        client.shutdown();
+
+    }
+
+    @Test
+    public void testApiGetDeviceList() throws Exception {
+
+        AepDeviceCommandClient client = AepDeviceCommandClient.newClient().appKey("eke3uNOLPfd").appSecret("wq0xibKkv1").build();
 
         {
-            QueryCommandRequest request = new QueryCommandRequest();
+            CreateCommandRequest request = new CreateCommandRequest();
             // request.setParam..  	// set your request params here
-            System.out.println(client.QueryCommand(request));
+            request.setParamMasterKey("4dd773bb798b4c39857b10b8d84c787e");
+            byte[] byteBody = buildRequstBody(
+                    "362b2c484dc04a65a9d99957e319ae78",
+                    "h3c",
+                    10035159,
+                    7800,
+                    2,
+                    "SER_CTRL_ALARM_FLG",
+                    1,
+                    "CTRL_ALARM_FLG",
+                    "0");
+
+            request.setBody(byteBody);
+
+            System.out.println("#############################");
+            CreateCommandResponse commandResponse = client.CreateCommand(request);
+            System.out.println(commandResponse);
+            int statusCode = commandResponse.getStatusCode();
+            if (statusCode == 200){
+                System.out.println("SENT");
+            }else{
+                System.out.println("FAILED");
+            }
+            System.out.println("#############################");
         }
 
-        {
-            CancelCommandRequest request = new CancelCommandRequest();
-            // request.setParam..  	// set your request params here
-            System.out.println(client.CancelCommand(request));
-        }*/
+
 
         client.shutdown();
 
