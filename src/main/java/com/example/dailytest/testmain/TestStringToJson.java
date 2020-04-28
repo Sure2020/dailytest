@@ -34,8 +34,6 @@ import java.util.List;
  **/
 public class TestStringToJson {
 
-    private Logger logger = LoggerFactory.getLogger(TestStringToJson.class);
-
     public static void main(String args[]){
         System.out.println("hello");
         /*String str = "{\"totalCount\":1,\"pageNo\":0,\"pageSize\":25,\"devices\":[{\"deviceId\":\"8b3a613f-46db-4cf0-885b-837747243d48\",\"gatewayId\":\"8b3a613f-46db-4cf0-885b-837747243d48\",\"nodeType\":\"GATEWAY\",\"createTime\":\"20200305T052822Z\",\"lastModifiedTime\":\"20200305T052822Z\",\"deviceInfo\":{\"nodeId\":\"1113036006\",\"manufacturerId\":\"Water\",\"manufacturerName\":\"Water\",\"deviceType\":\"WaterMeter\",\"model\":\"demo130\",\"protocolType\":\"CoAP\",\"status\":\"OFFLINE\",\"statusDetail\":\"NOT_ACTIVE\"}}]}";
@@ -49,28 +47,25 @@ public class TestStringToJson {
         JSONObject jsonObject = JSONObject.parseObject(sourceData);
         JSONArray sourceDataArray = jsonObject.getJSONArray("deviceList");
 
-        List<String> finalDataList = new ArrayList<>();
+        List<String> finalDatadeviceIDList = new ArrayList<>();
+        List<String> finalDatadeviceNameList = new ArrayList<>();
         Integer repeatedDataCount = 0;
         for (Object obj : sourceDataArray) {
             JSONObject singleDataObj = (JSONObject) obj;
             String deviceID = singleDataObj.getString("deviceID");
-            if (finalDataList.contains(deviceID)) {
+            String deviceName = singleDataObj.getString("deviceName");
+
+            if (finalDatadeviceIDList.contains(deviceID) || finalDatadeviceNameList.contains(deviceName)) {
                 System.out.println("重复数据： " + singleDataObj);
                 repeatedDataCount ++;
             } else {
-                finalDataList.add(deviceID);
+                finalDatadeviceIDList.add(deviceID);
+                finalDatadeviceNameList.add(deviceName);
             }
         }
         System.out.println("去重前的总记录条数： " + sourceDataArray.size());
         System.out.println("重复记录的条数： " + repeatedDataCount);
-        System.out.println("去重后的总记录条数： " + finalDataList.size());
-
-
-
-
-        //TestLogger.testLogger();
-        //TestIntegerForLoop.testInteger();
-
+        System.out.println("去重后的总记录条数： " + finalDatadeviceIDList.size());
 
     }
 }
