@@ -41,15 +41,15 @@ public class APITest {
             // request.setParam..  	// set your request params here
             request.setParamMasterKey("4dd773bb798b4c39857b10b8d84c787e");
             byte[] byteBody = buildRequstBody(
-                    "362b2c484dc04a65a9d99957e319ae78",
+                    "fe1782dd75d84f83a9c8b6e75e682eda",
                     "h3c",
-                    10035159,
+                    "10035159",
                     7800,
                     2,
                     "SER_CTRL_ALARM_FLG",
                     1,
                     "CTRL_ALARM_FLG",
-                    "0");
+                    "1");
 
             request.setBody(byteBody);
 
@@ -81,7 +81,7 @@ public class APITest {
             byte[] byteBody = buildRequstBody(
                     "362b2c484dc04a65a9d99957e319ae78",
                     "h3c",
-                    10035159,
+                    "10035159",
                     7800,
                     2,
                     "SER_CTRL_ALARM_FLG",
@@ -125,7 +125,7 @@ public class APITest {
         }
     }
     */
-    public byte[] buildRequstBody(String deviceId, String operator, int productId, int ttl, int level,
+    public byte[] buildRequstBody(String deviceId, String operator, String productId, int ttl, int level,
                                       String serviceIdentifier, int isReturn, String paramKey, String paramValue) throws Exception{
         JSONObject paramsObj = new JSONObject();
         paramsObj.put(paramKey,paramValue);

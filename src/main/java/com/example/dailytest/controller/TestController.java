@@ -21,6 +21,7 @@ package com.example.dailytest.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.example.dailytest.entity.DeviceDetail;
 import com.example.dailytest.entity.request.DeviceDataChanged;
+import com.example.dailytest.testmain.TestAtValue;
 import com.example.dailytest.utils.Constant;
 import com.example.dailytest.utils.ConstantProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +57,11 @@ public class TestController {
     public String atValue(){
 
         System.out.println(constantProperties.getTestValue());
+        System.out.println(constantProperties.getCallbackBaseUrl());
         System.out.println(testValue);
         System.out.println(Constant.CALLBACK_BASE_URL);
         System.out.println(Constant.DEVICE_ADDED_CALLBACK_URL);
+        System.out.println(new TestAtValue().testAtValue());
         return "yes";
     }
 

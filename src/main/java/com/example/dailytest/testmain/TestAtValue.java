@@ -19,7 +19,9 @@
 package com.example.dailytest.testmain;
 
 import com.example.dailytest.utils.ConstantProperties;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -34,9 +36,19 @@ public class TestAtValue {
 //    static String testValue;
 //    @Value("{lishuiduijie.testValue}")
 //    static String testValue2;
-    @Autowired
+//
+//    @Value("${lishuiduijie.testValue}")
+//    static String lishuiduijieTestValue;
+    /*@Autowired
     static ConstantProperties constantProperties;
     public static void main(String args[]){
         System.out.println(constantProperties.getTestValue());
+    }*/
+
+    //@Test
+    public String testAtValue(){
+        System.out.println(ConstantProperties.getTestValue());
+        System.out.println(ConstantProperties.getCallbackBaseUrl());
+        return ConstantProperties.getCallbackBaseUrl();
     }
 }

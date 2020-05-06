@@ -1,5 +1,7 @@
 package com.example.dailytest.shenzhenalarm.test;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.ctg.ag.sdk.biz.AepDeviceManagementClient;
 import com.ctg.ag.sdk.biz.aep_device_management.*;
 import com.ctg.ag.sdk.core.constant.Scheme;
@@ -25,7 +27,32 @@ public class AepDeviceManagementDemo {
 			request.setParamMasterKey("4dd773bb798b4c39857b10b8d84c787e");
 			request.setParamProductId("10035159");
 			System.out.println("#############################");
-			System.out.println(client.QueryDeviceList(request));
+			QueryDeviceListResponse deviceListResponse = client.QueryDeviceList(request);
+			System.out.println(deviceListResponse);
+			System.out.println(deviceListResponse.getStatusCode());
+			byte[] responseBodyBytes = deviceListResponse.getBody();
+			String responseBodyString = new String(responseBodyBytes,"UTF-8");
+			JSONObject responseBodyObj = JSONObject.parseObject(responseBodyString);
+			System.out.println(responseBodyObj);
+			JSONArray responseBodyList = responseBodyObj.getJSONObject("result").getJSONArray("list");
+			System.out.println(responseBodyList.size());
+			for (Object singleObj : responseBodyList) {
+				JSONObject singleJsonObj = (JSONObject) singleObj;
+				String deviceId = singleJsonObj.getString("deviceId");
+				System.out.println(deviceId);
+				int netStatus = singleJsonObj.getIntValue("netStatus");
+				System.out.println(netStatus);
+				String status = "OFFLINE";
+				if (netStatus == 1) {
+					status = "ONLINE";
+					System.out.println("ONLINE");
+				}
+				String appId = "";//constantFromProperties.getappid();
+				//入库
+			}
+
+			System.out.println(responseBodyString);
+			System.out.println(deviceListResponse.getMessage());
 			System.out.println("#############################");
 		}
 		
