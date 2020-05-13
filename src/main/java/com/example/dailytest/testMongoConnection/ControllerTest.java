@@ -35,8 +35,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ControllerTest {
     @Autowired
     DBDaoTest dbDaoTest;
+    @Autowired
+    DBServiceTest dbServiceTest;
+
     @PostMapping("/test/mongodb")
-    public  String mongodbTest(@RequestBody JSONObject requestObj){
+    public  Object mongodbTest(@RequestBody JSONObject requestObj){
         System.out.println("requstObj: " + requestObj.toString());
 
         String testID = requestObj.getString("testID");
@@ -65,6 +68,10 @@ public class ControllerTest {
             case "upsert":
                 System.out.println("upsert");
                 dbDaoTest.upsertTest(dbEntityTest);
+                break;
+            case "read":
+                System.out.println("read");
+                dbServiceTest.readDB(0,10);
                 break;
             default:
                 System.out.println("other");
