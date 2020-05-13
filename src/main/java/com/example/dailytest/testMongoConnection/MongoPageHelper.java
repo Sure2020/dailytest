@@ -115,6 +115,7 @@ public class MongoPageHelper {
         Order tempOrder = new Order(Direction.ASC, ID);
         //Sort tempSort = new Sort(tempOrder);
         Sort tempSort = Sort.by(tempOrder);
+        query.with(tempSort);
         final List<T> entityList = mongoTemplate.find(query,entityClass);
 
         final PageResult<R> pageResult = new PageResult<>();
