@@ -15,6 +15,13 @@ public class TestEquel {
         if (42 == 42.0) { // true
             System.out.println("true");
         }
+
+        b = a;
+        if (a == b) // false，⾮同⼀对象
+            System.out.println("a==b");
+        if (a.equals(b)) // true  (String 的euqel是被重写过的，是比较对象的内容)
+            System.out.println("aEQb");
+        
         //test hashCode
         System.out.println(a.hashCode());
         System.out.println(b.hashCode());
