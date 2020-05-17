@@ -15,5 +15,11 @@ public class TestEquel {
         if (42 == 42.0) { // true
             System.out.println("true");
         }
+        //test hashCode
+        System.out.println(a.hashCode());
+        System.out.println(b.hashCode());
+        System.out.println(aa.hashCode());
+        System.out.println(bb.hashCode());
+        System.out.println("test".hashCode());
     }
 }
