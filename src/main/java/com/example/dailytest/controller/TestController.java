@@ -116,6 +116,15 @@ public class TestController {
         resultObj.put("total", 1);
         resultObj.put("deviceList", resultList);
 
+        for(int i =0; i< 20; i++) {
+            System.out.println(i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         return resultObj;
     }
 
