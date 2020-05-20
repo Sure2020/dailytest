@@ -26,10 +26,10 @@ import com.example.dailytest.utils.Constant;
 import com.example.dailytest.utils.ConstantProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @program: com.example.lishuiduijie_test.controller
@@ -93,5 +93,48 @@ public class TestController {
         System.out.println("modId: "+ modId);
         System.out.println(jsonObject.toString());
         return modId;
+    }
+
+    @GetMapping("/test/lock")
+    public JSONObject lock (@RequestParam String lockerId) {
+        System.out.println(lockerId);
+        JSONObject resultObj = new JSONObject();
+        JSONObject lockObj = new JSONObject();
+        List resultList = new ArrayList();
+        if ("locker1".equals(lockerId)) {
+            lockObj.put("lockId", "lock1");
+            lockObj.put("lockerId", "locker1");
+            resultList.add(lockObj);
+        }
+        if ("locker2".equals(lockerId)) {
+            lockObj.put("lockId", "lock2");
+            lockObj.put("lockerId", "locker2");
+            resultList.add(lockObj);
+        }
+
+
+        resultObj.put("total", 1);
+        resultObj.put("deviceList", resultList);
+
+        return resultObj;
+    }
+
+    @GetMapping("/test/locker")
+    public JSONObject locker () {
+        JSONObject resultObj = new JSONObject();
+        JSONObject lockerObj1 = new JSONObject();
+        JSONObject lockerObj2 = new JSONObject();
+        List resultList = new ArrayList();
+
+        lockerObj1.put("lockerId", "locker1");
+        lockerObj2.put("lockerId", "locker2");
+
+        resultList.add(lockerObj1);
+        resultList.add(lockerObj2);
+
+        resultObj.put("total", 2);
+        resultObj.put("deviceList", resultList);
+
+        return resultObj;
     }
 }
