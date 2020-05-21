@@ -49,7 +49,7 @@ public class RunService {
     private static String DEL_URL = "http://localhost:8080/testDel";*/
     private static String GET_URL = "http://localhost:3333/";
     private static String POST_URL = "http://localhost:3333/";
-    private static String POST_PARAM_URL = "http://localhost:3333/";
+    private static String POST_PARAM_URL = "http://localhost:3333/testPostParam";
     private static String PUT_URL = "http://localhost:3333/";
     private static String DEL_URL = "http://localhost:3333/";
 
@@ -132,6 +132,7 @@ public class RunService {
     @GetMapping("getTestPostParam")
     public void getTestPostParam(){
         HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
         MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
         map.add("id", "100");
         map.add("name", "getTestPostParam");
