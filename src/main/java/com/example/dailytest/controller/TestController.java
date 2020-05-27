@@ -89,10 +89,10 @@ public class TestController {
     }
 
     @PostMapping("/test/modId")
-    public String testModId (String modId, @RequestBody JSONObject jsonObject){
-        System.out.println("modId: "+ modId);
+    public JSONObject testModId (/*String modId,*/ @RequestBody JSONObject jsonObject){
+//        System.out.println("modId: "+ modId);
         System.out.println(jsonObject.toString());
-        return modId;
+        return jsonObject;
     }
 
     @GetMapping("/test/lock")
