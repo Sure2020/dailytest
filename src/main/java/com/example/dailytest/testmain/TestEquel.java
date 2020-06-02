@@ -17,16 +17,9 @@ public class TestEquel {
         }
 
         b = a;
-        if (a == b) // true
+        if (a == b) // true，因为此时a已经赋值给b了
             System.out.println("a==b");
         if (a.equals(b)) // true  (String 的euqel是被重写过的，是比较对象的内容)
             System.out.println("aEQb");
-
-        //test hashCode
-        System.out.println(a.hashCode());
-        System.out.println(b.hashCode());
-        System.out.println(aa.hashCode());
-        System.out.println(bb.hashCode());
-        System.out.println("test".hashCode());
     }
 }
