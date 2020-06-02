@@ -17,7 +17,7 @@ public class TestEquel {
         }
 
         b = a;
-        if (a == b) // false，⾮同⼀对象
+        if (a == b) // true
             System.out.println("a==b");
         if (a.equals(b)) // true  (String 的euqel是被重写过的，是比较对象的内容)
             System.out.println("aEQb");
