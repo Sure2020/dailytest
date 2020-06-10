@@ -19,7 +19,21 @@ public class TestEquel {
         b = a;
         if (a == b) // true，因为此时a已经赋值给b了
             System.out.println("a==b");
-        if (a.equals(b)) // true  (String 的euqel是被重写过的，是比较对象的内容)
+        if (a.equals(b)) // true  (String 的equel是被重写过的，是比较对象的内容)
             System.out.println("aEQb");
+
+        TestClass testClassA = new TestClass();
+        TestClass testClassB = new TestClass();
+        // equels 的源码实现就是 ==， 只不过Sting的equel是被重写过的，特殊
+        if (testClassA == testClassB) {
+            System.out.println("a == b");
+        }
+        if (testClassA.equals(testClassB)) {
+            System.out.println("a equels b");
+        }
+    }
+
+    public static class TestClass{
+        //do nothing
     }
 }
