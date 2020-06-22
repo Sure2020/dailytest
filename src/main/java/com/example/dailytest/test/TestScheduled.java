@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class TestScheduled {
-    @Scheduled(cron = "*/1 * * * * ?")
+    @Scheduled(cron = "* * * * * ?")
     public void testSchedule () {
         log.error("testing schedule");
     }
