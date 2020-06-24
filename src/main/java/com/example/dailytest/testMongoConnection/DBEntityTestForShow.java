@@ -30,7 +30,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  **/
 
 @Data
-@Document("entityTest")
+@Document("entityTestForShow")
 public class DBEntityTestForShow {
     @Id
     private String testID;
