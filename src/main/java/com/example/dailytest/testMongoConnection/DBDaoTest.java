@@ -61,6 +61,10 @@ public class DBDaoTest {
         System.out.println("upResult: " + upResult);
     }
 
+    public void insertData(DBTestModel dbTestModel){
+        mongoTemplate.insert(dbTestModel);
+    }
+
     /*public void save(Polygon polygon){
         mongoTemplate.save(polygon);
     }
