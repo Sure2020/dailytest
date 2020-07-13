@@ -18,7 +18,8 @@
 
 package com.example.dailytest.controller.testSoap;
 
-import com.example.dailytest.controller.testSoap.dependency.*;
+//import com.example.dailytest.controller.testSoap.dependency.*;
+import org.opcfoundation.webservices.xmlda._1.*;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 

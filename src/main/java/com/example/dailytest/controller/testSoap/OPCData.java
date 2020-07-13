@@ -16,7 +16,7 @@
  * --------------------------------------------------------------------
  */
 
-package com.example.dailytest.controller.testSoap.dependency;
+package com.example.dailytest.controller.testSoap;
 
 /**
  * 用于视图的数据结构
