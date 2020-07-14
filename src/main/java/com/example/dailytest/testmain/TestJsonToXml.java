@@ -37,12 +37,12 @@ public class TestJsonToXml {
         String sourceStr = stringBuilder.toString();
         System.out.println(sourceStr);*/
         JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("String", "I am String");
+        jsonObject.put("String", "I am String");
 
         JSONObject subJsonObject = new JSONObject();
         subJsonObject.put("subJsonObject", "I am subJsonObject");
 
-        //jsonObject.put("subJsonObject", subJsonObject);
+        jsonObject.put("subJsonObject", subJsonObject);
 
 
         JSONObject subJsonObject1_forArray = new JSONObject();
