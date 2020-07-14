@@ -124,6 +124,12 @@
 			<artifactId>org.openscada.opc.xmlda</artifactId>
 			<version>1.5.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
 		<!-- Thanks for using https://jar-download.com -->
 		<!--for test soap-->
 

@@ -36,7 +36,7 @@ import java.io.IOException;
 @Slf4j
 public class TestSOAPElement {
 
-    public static String main(String[] args) throws SOAPException, IOException {
+    public static void main(String[] args) throws SOAPException, IOException {
         //  创建消息对象
         // ===========================================
         SOAPMessage message = MessageFactory.newInstance().createMessage();
@@ -111,7 +111,7 @@ public class TestSOAPElement {
         System.out.println("##############################  测试解析返回值   ##############################");
         String xmlString = soapMessageToString(message);
 
-        return xmlString;
+        //return xmlString;
     }
 
 
