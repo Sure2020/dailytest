@@ -21,11 +21,16 @@ package com.example.dailytest.testmain;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.w3c.dom.Document;
 
 import javax.xml.namespace.QName;
 import javax.xml.soap.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 
 /**
  * @program: com.example.dailytest.testmain
@@ -204,5 +209,28 @@ public class TestSOAPElement {
         }
         System.out.println("soapMessageToString: " + result);
         return result;
+    }
+
+    public static String soapBodyToString (SOAPBody soapBody) throws TransformerException {
+
+        DOMSource source = new DOMSource(soapBody);
+        StringWriter stringResult = new StringWriter();
+        TransformerFactory.newInstance().newTransformer().transform(source, new StreamResult(stringResult));
+        String soapBodyStr = stringResult.toString();
+        //System.out.println(soapBodyStr);
+        return soapBodyStr;
+    }
+
+    public static String convertToString (SOAPBody message) throws Exception{
+        Document doc = message.extractContentAsDocument();
+        StringWriter sw = new StringWriter();
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer = tf.newTransformer();
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+        transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        transformer.transform(new DOMSource(doc), new StreamResult(sw));
+        return sw.toString();
     }
 }
