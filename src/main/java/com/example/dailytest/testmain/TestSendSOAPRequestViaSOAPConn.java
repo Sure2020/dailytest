@@ -20,8 +20,8 @@ package com.example.dailytest.testmain;
 
 import org.json.JSONException;
 import org.json.XML;
-import org.opcfoundation.webservices.xmlda._1.ReadRequestItem;
-import org.opcfoundation.webservices.xmlda._1.ReadRequestItemList;
+//import org.opcfoundation.webservices.xmlda._1.ReadRequestItem;
+//import org.opcfoundation.webservices.xmlda._1.ReadRequestItemList;
 
 import javax.xml.namespace.QName;
 import javax.xml.soap.*;
@@ -38,6 +38,7 @@ import static com.example.dailytest.testmain.TestSOAPElement.*;
  * @create: 2020-07-14
  **/
 public class TestSendSOAPRequestViaSOAPConn {
+    //public static String endpoint = "http://rap2.taobao.org:38080/app/mock/data/1619186";//"http://127.0.0.1:8086/soap";
     public static String endpoint = "http://127.0.0.1:8086/soap";
     private static final String namespace = "http://opcfoundation.org/webservices/XMLDA/1.0/";
     public static void main(String[] args) throws Exception {
@@ -64,7 +65,7 @@ public class TestSendSOAPRequestViaSOAPConn {
         SOAPElement se = bodyElement.addChildElement("Options");
         se.setAttribute("LocaleID", "en-US");
         se.setAttribute("ClientRequestHandle", "");
-        se.setAttribute("ReturnItemTime", "true");
+        se.setAttribute("ReturnItemTime", "false");
         se.setAttribute("ReturnItemName", "true");
 
         se = bodyElement.addChildElement("ItemList");

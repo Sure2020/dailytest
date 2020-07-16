@@ -19,7 +19,7 @@
 package com.example.dailytest.controller.testSoap;
 
 //import com.example.dailytest.controller.testSoap.dependency.*;
-import org.opcfoundation.webservices.xmlda._1.*;
+//import org.opcfoundation.webservices.xmlda._1.*;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -39,7 +39,7 @@ import org.joda.time.DateTime;
  * @author: w15021
  * @create: 2020-07-11
  **/
-public class SOAPClient {
+/*public class SOAPClient {
 
     // 其实就 webservice 的 url
 //	private static final String endpoint = "http://webservice.webxml.com.cn/WebServices/WeatherWebService.asmx";
@@ -665,4 +665,4 @@ public class SOAPClient {
 //        }
     }
 
-}
+}*/

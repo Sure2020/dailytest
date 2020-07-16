@@ -35,6 +35,6 @@ import javax.xml.soap.SOAPException;
 public class TestSoapController {
     @RequestMapping("/test/soap")
     public void testSoap () throws JAXBException, SOAPException {
-        SOAPClient.main(null);
+        //SOAPClient.main(null);
     }
 }
