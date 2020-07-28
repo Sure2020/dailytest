@@ -26,6 +26,11 @@ import redis.clients.jedis.Jedis;
  * @author: w15021
  * @create: 2020-07-28
  **/
+
+/*
+https://www.cnblogs.com/zhili/p/redisdistributelock.html
+ */
+
 public class RedisDistributedLockTest {
     static int n = 500;
     public static void secskill() {

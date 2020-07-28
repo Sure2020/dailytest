@@ -30,7 +30,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Redis分布式锁
+ * Redis分布式锁    https://www.jianshu.com/p/c2b4aa7a12f1
  */
 public class TestDistributeLockRedis {
 
