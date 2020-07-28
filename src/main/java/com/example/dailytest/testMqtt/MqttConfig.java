@@ -50,7 +50,8 @@ import org.springframework.messaging.MessagingException;
  *
  * @author BBF
  */
-@Configuration
+//此处为了让应用启动不自动连mqtt服务器，故注释掉
+//@Configuration
 public class MqttConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MqttConfig.class);
