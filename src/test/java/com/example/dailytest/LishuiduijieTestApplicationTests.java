@@ -8,6 +8,7 @@ class LishuiduijieTestApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("testing app");
 	}
 
 }
