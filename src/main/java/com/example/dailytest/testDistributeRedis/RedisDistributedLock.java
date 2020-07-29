@@ -20,6 +20,7 @@ package com.example.dailytest.testDistributeRedis;
 
 import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -103,7 +104,12 @@ public class RedisDistributedLock implements DistributedLock{
             String requireToken = UUID.randomUUID().toString();
             while (System.currentTimeMillis() < end) {
                 log.info("waiting for acquire lock, requestToken:{}", requireToken);
-                String result = jedis.set(lockKey, requireToken, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+                //String result = jedis.set(lockKey, requireToken, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+                //
+                SetParams setParams = new SetParams();
+                setParams.px(expireTime);
+                setParams.nx();
+                String result = jedis.set(lockKey, requireToken, setParams);
                 if (LOCK_SUCCESS.equals(result)) {
                     log.info("acquire lock success");
                     return requireToken;
