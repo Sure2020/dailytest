@@ -41,14 +41,14 @@ public class DistributedLockController {
         Runnable runnable = () -> {
             RedisDistributedLock lock = null;
             //String unLockIdentify = null;
-            Boolean unLockIdentify = false;
+            Boolean lockIdentify = false;
             try {
                 //Jedis conn = new Jedis("192.168.110.109",16379);
                 lock = new RedisDistributedLock(redisTemplate);
-                unLockIdentify = lock.lock("testKey",1000,3,1000);
+                lockIdentify = lock.lock("testKey",2*60*1000,10,1000);
                 System.out.println(Thread.currentThread().getName() + "正在运行");
 
-                if (unLockIdentify){
+                if (lockIdentify){
                     System.out.println(Thread.currentThread().getName() + "   I'm doing something, it will cost 1 seconds");
                     try {
                         Thread.sleep(1000);
