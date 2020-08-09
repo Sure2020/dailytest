@@ -2,6 +2,7 @@ package com.example.dailytest.testmain.testSendSoapRequest;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -48,8 +49,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Slf4j
 public class HttpClientPoolUtils {
-    private static Logger logger = LoggerFactory.getLogger(HttpClientPoolUtils.class);
+    //private static Logger logger = LoggerFactory.getLogger(HttpClientPoolUtils.class);
     // 池化管理
     private static PoolingHttpClientConnectionManager poolConnManager = null;
 
@@ -159,8 +161,8 @@ public class HttpClientPoolUtils {
     }
 
     public static HttpClientResult getPostResult(String url, String contentType, JSONObject requestBody) {
-        logger.info("网络请求url:" + url);
-        logger.info("请求参数：" + requestBody.toString());
+        log.info("网络请求url:" + url);
+        log.info("请求参数：" + requestBody.toString());
         HttpResponse mHttpResponse = null;
         HttpPost mHttpPost;
         CloseableHttpClient mHttpClients = HttpClientPoolUtils.getHttpClient();
@@ -202,7 +204,7 @@ public class HttpClientPoolUtils {
                 mHttpResponse = mHttpClients.execute(mHttpPost);
                 int respons_code = mHttpResponse.getStatusLine().getStatusCode();
                 String codeStr = String.valueOf(respons_code);
-                logger.info("reponCode:" + codeStr);
+                log.info("reponCode:" + codeStr);
                 if (null != mHttpResponse && codeStr.startsWith("4")) {
                     return HttpClientResult.build(respons_code, null);
                 }
@@ -222,11 +224,11 @@ public class HttpClientPoolUtils {
                 //获取返回结果
                 HttpEntity mHttpEntity = mHttpResponse.getEntity();
                 code = mHttpResponse.getStatusLine().getStatusCode();
-                logger.info("code:" + String.valueOf(code));
+                log.info("code:" + String.valueOf(code));
                 if (mHttpEntity != null) {
                     result = EntityUtils.toString(mHttpEntity, "UTF-8");
                     EntityUtils.consume(mHttpEntity);
-                    logger.info("获得token：" + result);
+                    log.info("获得token：" + result);
                 }
             } else {
                 return HttpClientResult.build(1, "网络返回数据为空！");
@@ -256,8 +258,8 @@ public class HttpClientPoolUtils {
         return HttpClientResult.build(code, result);
     }
     public static HttpClientResult getPostResult(String url, String contentType, JSONObject requestBody, List<HeaderMap> headerMapList) {
-        logger.info("网络请求url:" + url);
-        logger.info("请求参数：" + requestBody.toString());
+        log.info("网络请求url:" + url);
+        log.info("请求参数：" + requestBody.toString());
         HttpResponse mHttpResponse = null;
         HttpPost mHttpPost;
         CloseableHttpClient mHttpClients = HttpClientPoolUtils.getHttpClient();
@@ -302,7 +304,7 @@ public class HttpClientPoolUtils {
                 mHttpResponse = mHttpClients.execute(mHttpPost);
                 int respons_code = mHttpResponse.getStatusLine().getStatusCode();
                 String codeStr = String.valueOf(respons_code);
-                logger.info("reponCode:" + codeStr);
+                log.info("reponCode:" + codeStr);
                 if (null != mHttpResponse && codeStr.startsWith("4")) {
                     return HttpClientResult.build(respons_code, null);
                 }
@@ -322,7 +324,7 @@ public class HttpClientPoolUtils {
                 //获取返回结果
                 HttpEntity mHttpEntity = mHttpResponse.getEntity();
                 code = mHttpResponse.getStatusLine().getStatusCode();
-                logger.info("code:" + String.valueOf(code));
+                log.info("code:" + String.valueOf(code));
                 if (mHttpEntity != null) {
                     result = EntityUtils.toString(mHttpEntity, "UTF-8");
                     EntityUtils.consume(mHttpEntity);
@@ -356,8 +358,8 @@ public class HttpClientPoolUtils {
     }
 
     public static HttpClientResult getPutResult(String url, String contentType, JSONObject requestBody) {
-        logger.info("网络请求url:" + url);
-        logger.info("请求参数：" + requestBody.toString());
+        log.info("网络请求url:" + url);
+        log.info("请求参数：" + requestBody.toString());
         HttpResponse mHttpResponse = null;
         HttpPut mHttpPost;
         CloseableHttpClient mHttpClients = HttpClientPoolUtils.getHttpClient();
@@ -399,7 +401,7 @@ public class HttpClientPoolUtils {
                 mHttpResponse = mHttpClients.execute(mHttpPost);
                 int respons_code = mHttpResponse.getStatusLine().getStatusCode();
                 String codeStr = String.valueOf(respons_code);
-                logger.info("reponCode:" + codeStr);
+                log.info("reponCode:" + codeStr);
                 if (null != mHttpResponse && codeStr.startsWith("4")) {
                     return HttpClientResult.build(respons_code, null);
                 }
@@ -419,11 +421,11 @@ public class HttpClientPoolUtils {
                 //获取返回结果
                 HttpEntity mHttpEntity = mHttpResponse.getEntity();
                 code = mHttpResponse.getStatusLine().getStatusCode();
-                logger.info("code:" + String.valueOf(code));
+                log.info("code:" + String.valueOf(code));
                 if (mHttpEntity != null) {
                     result = EntityUtils.toString(mHttpEntity, "UTF-8");
                     EntityUtils.consume(mHttpEntity);
-                    logger.info("获得token：" + result);
+                    log.info("获得token：" + result);
                 }
             } else {
                 return HttpClientResult.build(1, "网络返回数据为空！");
@@ -456,8 +458,8 @@ public class HttpClientPoolUtils {
 
 
     public static HttpClientResult getPutResult(String url, String contentType, JSONObject requestBody, List<HeaderMap> headerMapList) {
-        logger.info("网络请求url:" + url);
-        logger.info("请求参数：" + requestBody.toString());
+        log.info("网络请求url:" + url);
+        log.info("请求参数：" + requestBody.toString());
         HttpResponse mHttpResponse = null;
         HttpPut mHttpPost;
         CloseableHttpClient mHttpClients = HttpClientPoolUtils.getHttpClient();
@@ -502,7 +504,7 @@ public class HttpClientPoolUtils {
                 mHttpResponse = mHttpClients.execute(mHttpPost);
                 int respons_code = mHttpResponse.getStatusLine().getStatusCode();
                 String codeStr = String.valueOf(respons_code);
-                logger.info("reponCode:" + codeStr);
+                log.info("reponCode:" + codeStr);
                 if (null != mHttpResponse && codeStr.startsWith("4")) {
                     return HttpClientResult.build(respons_code, null);
                 }
@@ -522,11 +524,11 @@ public class HttpClientPoolUtils {
                 //获取返回结果
                 HttpEntity mHttpEntity = mHttpResponse.getEntity();
                 code = mHttpResponse.getStatusLine().getStatusCode();
-                logger.info("code:" + String.valueOf(code));
+                log.info("code:" + String.valueOf(code));
                 if (mHttpEntity != null) {
                     result = EntityUtils.toString(mHttpEntity, "UTF-8");
                     EntityUtils.consume(mHttpEntity);
-                    logger.info("获得token：" + result);
+                    log.info("获得token：" + result);
                 }
             } else {
                 return HttpClientResult.build(1, "网络返回数据为空！");
@@ -559,7 +561,7 @@ public class HttpClientPoolUtils {
 
 
     public static HttpClientResult getGetResult(String url) {
-        logger.info("网络请求url:" + url);
+        log.info("网络请求url:" + url);
         String httpResult = "";
         int code = -1;
         CloseableHttpClient httpclient = HttpClientPoolUtils.getHttpClient();
@@ -574,12 +576,12 @@ public class HttpClientPoolUtils {
             HttpEntity entity = response.getEntity();
             // 打印响应状态
             code = response.getStatusLine().getStatusCode();
-            logger.info("code:" + code);
+            log.info("code:" + code);
             if (entity != null) {
                 // 响应内容
                 httpResult = EntityUtils.toString(entity, "UTF-8");
                 EntityUtils.consume(entity);
-//                logger.info("result:" + httpResult);
+//                log.info("result:" + httpResult);
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
@@ -604,7 +606,7 @@ public class HttpClientPoolUtils {
 
 
     public static HttpClientResult getGetResult(String url, List<HeaderMap> headerMapList) {
-        logger.info("网络请求url:" + url);
+        log.info("网络请求url:" + url);
         String httpResult = "";
         int code = -1;
         CloseableHttpClient httpclient = HttpClientPoolUtils.getHttpClient();
@@ -622,7 +624,7 @@ public class HttpClientPoolUtils {
             HttpEntity entity = response.getEntity();
             // 打印响应状态
             code = response.getStatusLine().getStatusCode();
-            logger.info("code:" + code);
+            log.info("code:" + code);
             if (entity != null) {
                 // 响应内容
                 httpResult = EntityUtils.toString(entity, "UTF-8");
@@ -664,7 +666,7 @@ public class HttpClientPoolUtils {
                 return HttpClientResult.build(1, "网络请求失败");
             }
             code = deleResponse.getStatusLine().getStatusCode();
-            logger.info("code" + code);
+            log.info("code" + code);
             if (String.valueOf(code).startsWith("2")) {
                 entity = deleResponse.getEntity();
                 if (entity != null) {
@@ -711,7 +713,7 @@ public class HttpClientPoolUtils {
                 return HttpClientResult.build(1, "网络请求失败");
             }
             code = deleResponse.getStatusLine().getStatusCode();
-            logger.info("code" + code);
+            log.info("code" + code);
             if (String.valueOf(code).startsWith("2")) {
                 entity = deleResponse.getEntity();
                 if (entity != null) {
@@ -770,8 +772,8 @@ public class HttpClientPoolUtils {
     }*/
 
     /*public static HttpClientResult getWebServiceResult(String url, String contentType, List<HeaderMap> headerMapList, JSONObject requestBody, ServiceParam serviceParam) {
-        logger.info("网络请求url:" + url);
-        logger.info("请求参数：" + requestBody.toString());
+        log.info("网络请求url:" + url);
+        log.info("请求参数：" + requestBody.toString());
         WebService webService = serviceParam.getWebService();
         String operation = webService == null ? null : webService.getOperation();
         String namespace = webService == null ? null : webService.getNamespace();
@@ -790,7 +792,7 @@ public class HttpClientPoolUtils {
         }
 
         StringEntity data = new StringEntity(XmlUtil.jsonToXml(requestBody,operation, namespace), Charset.forName("UTF-8"));
-        logger.info("请求参数xml:" + XmlUtil.jsonToXml(requestBody,operation, namespace));
+        log.info("请求参数xml:" + XmlUtil.jsonToXml(requestBody,operation, namespace));
         mHttpPost.setEntity(data);
         //ִ执行网络请求
         try {
@@ -799,7 +801,7 @@ public class HttpClientPoolUtils {
                 mHttpResponse = mHttpClients.execute(mHttpPost);
                 int respons_code = mHttpResponse.getStatusLine().getStatusCode();
                 String codeStr = String.valueOf(respons_code);
-                logger.info("reponCode:" + codeStr);
+                log.info("reponCode:" + codeStr);
                 if (null != mHttpResponse && codeStr.startsWith("4")) {
                     return HttpClientResult.build(respons_code, null);
                 }
@@ -819,7 +821,7 @@ public class HttpClientPoolUtils {
                 //获取返回结果
                 HttpEntity mHttpEntity = mHttpResponse.getEntity();
                 code = mHttpResponse.getStatusLine().getStatusCode();
-                logger.info("code:" + String.valueOf(code));
+                log.info("code:" + String.valueOf(code));
                 if (mHttpEntity != null) {
                     result = EntityUtils.toString(mHttpEntity, "UTF-8");
                     EntityUtils.consume(mHttpEntity);
@@ -855,17 +857,17 @@ public class HttpClientPoolUtils {
             if (result.startsWith("[")){
                 //[{}] jsonArray
                 List<JSONObject>  tmp = JSONArray.parseArray(result,JSONObject.class);
-               // logger.info("result:{}",result);
+               // log.info("result:{}",result);
                 jsonObject.put("null",tmp);
             } else {
                 jsonObject = JSONObject.parseObject(result);
             }
             jsonObject.put("code",200);
             jsonObject.put("message","成功");
-            logger.info("解析后结果:" + jsonObject.toString());
+            log.info("解析后结果:" + jsonObject.toString());
             return HttpClientResult.build(code, jsonObject.toJSONString());
         }
-        logger.info("解析后结果:" + result.toString());
+        log.info("解析后结果:" + result.toString());
         return HttpClientResult.build(code, result.toString());
     }*/
 
@@ -962,7 +964,7 @@ public class HttpClientPoolUtils {
     }
 
     /**
-     * @description: 将用户配置的请求参数（已json对象保存）拼装成xml格式
+     * @description: 将用户配置的请求参数（已json对象保存）拼装成xml格式（应该有好用的json直接转xml的工具，尚未找到合适的，故自己写了一个简陋的）
      * @param: 
      * @return: 
      * @author: w15021
@@ -980,10 +982,29 @@ public class HttpClientPoolUtils {
             } else if (currentObj instanceof String){
                 String currentObjValue = currentObj.toString();
                 soapElement.setAttribute(currentObjKey, currentObjValue);
-            } else if (currentObj instanceof JSONArray) {
-                logger.error("当xml参数风格为key=value时，暂不支持该分支的情况");
+            } else if (currentObj instanceof List) {
+                List currentList = (List) currentObj;
+                for(int i = 0; i < currentList.size(); i ++) {
+                    Object currentListObj = currentList.get(i);
+                    SOAPElement parentElement = soapElement.getParentElement();
+                    String currentElementName = soapElement.getTagName();
+                    System.out.println("currentElementName: " + currentElementName);
+                    if (currentListObj instanceof String){
+                        //这里，当第一次循环时直接setAttribute，而不是先重新取到element再setAttribute,是因为此时传入的
+                        //soapElement已经是待操作element了。以后的循环是先重新取到element再setAttribute。
+                        //如果没理解上面两行的解释，可以将（0==i）这个分支去掉，运行后会发现最后拼装出来的请求体会多一个空的标签。
+                        if(0 == i) {
+                            soapElement.setAttribute(currentObjKey, (String) currentListObj);
+                        } else {
+                            SOAPElement tempElement = parentElement.addChildElement(currentElementName);
+                            tempElement.setAttribute(currentObjKey, (String) currentListObj);
+                        }
+                    } else {
+                        log.error("目前仅支持数组元素为String类型，当前元素内容为：{}", currentListObj.toString());
+                    }
+                }
             } else {
-                logger.error("不支持的类型");
+                log.error("不支持的类型，object内容为：{}", currentObj);
                 return;
             }
         }
@@ -1059,9 +1080,9 @@ public class HttpClientPoolUtils {
         String resType = webService == null ? null : webService.getRespType();
         String result = (String) httpClientResult.getEntity();
         Integer code = httpClientResult.getCode();
-        logger.info("code:{},result:{}",code,result);
+        log.info("code:{},result:{}",code,result);
         result = XmlUtil.XmlTojson(result, resType);
-        logger.info("result-afterxml:{}",result);
+        log.info("result-afterxml:{}",result);
         JSONObject jsonObject = new JSONObject();
         if(serviceParam.getRespParams().isHttpStatusCode()){
             if (result.startsWith("[")){
@@ -1073,10 +1094,10 @@ public class HttpClientPoolUtils {
             }
             jsonObject.put("code",200);
             jsonObject.put("message","成功");
-            logger.info("解析后结果:" + jsonObject.toString());
+            log.info("解析后结果:" + jsonObject.toString());
             return HttpClientResult.build(code, jsonObject.toJSONString());
         }
-        logger.info("解析后结果:" + result);
+        log.info("解析后结果:" + result);
         return HttpClientResult.build(code, result);
     }*/
 }

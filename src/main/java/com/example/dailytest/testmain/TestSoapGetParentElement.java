@@ -81,6 +81,10 @@ public class TestSoapGetParentElement {
         itemsElem.setAttribute("key","value");
         itemsElem.getParentElement().setAttribute("parent","parent");
         //itemsElem.setParentElement();
+        System.out.println(itemsElem.getElementName());
+        System.out.println(itemsElem.getLocalName());
+        System.out.println(itemsElem.getNodeName());
+        System.out.println(itemsElem.getTagName());
 
         soapMessageToString(message);
 

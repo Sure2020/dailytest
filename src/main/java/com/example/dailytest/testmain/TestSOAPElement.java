@@ -32,6 +32,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import static com.example.dailytest.testmain.testSendSoapRequest.HttpClientPoolUtils.addAttributeForbodyElement;
+import static com.example.dailytest.testmain.testSendSoapRequest.HttpClientPoolUtils.addChildElementForElement;
+
 /**
  * @program: com.example.dailytest.testmain
  * @description: xxx
@@ -133,7 +136,7 @@ public class TestSOAPElement {
         //终止动作：se.setAttribute
     }
 
-    public static void addChildElementForElement (SOAPElement soapElement, JSONObject requestObj) throws SOAPException {
+    /*public static void addChildElementForElement (SOAPElement soapElement, JSONObject requestObj) throws SOAPException {
 
         for (String currentObjKey : requestObj.keySet()) {
             Object currentObj = requestObj.get(currentObjKey);
@@ -152,9 +155,9 @@ public class TestSOAPElement {
                 return;
             }
         }
-    }
+    }*/
 
-    public static void addAttributeForbodyElement(SOAPElement soapElement, JSONObject requestObj, String operation){
+    /*public static void addAttributeForbodyElement(SOAPElement soapElement, JSONObject requestObj, String operation){
         if(requestObj.keySet().contains(operation)){
             JSONObject jsonObjectNamedOperation = requestObj.getJSONObject(operation);
             if(jsonObjectNamedOperation != null && jsonObjectNamedOperation.size() > 0) {
@@ -167,7 +170,7 @@ public class TestSOAPElement {
             requestObj.remove(operation);
         }
         return;
-    }
+    }*/
 
     public static void soapMsgToStr(SOAPMessage message) throws IOException, SOAPException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -207,7 +210,7 @@ public class TestSOAPElement {
                 }
             }
         }
-        System.out.println("soapMessageToString: " + result);
+        //System.out.println("soapMessageToString: " + result);
         return result;
     }
 

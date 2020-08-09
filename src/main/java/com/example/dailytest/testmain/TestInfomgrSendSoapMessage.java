@@ -18,17 +18,21 @@
 
 package com.example.dailytest.testmain;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.example.dailytest.testmain.testSendSoapRequest.HeaderMap;
 
+import com.example.dailytest.testmain.testSendSoapRequest.HttpClientPoolUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.json.XML;
 
 import javax.xml.namespace.QName;
 import javax.xml.soap.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.dailytest.testmain.TestSOAPElement.*;
+
 
 /**
  * @program: com.example.dailytest.testmain
@@ -41,17 +45,41 @@ public class TestInfomgrSendSoapMessage {
     public static void main(String[] args) throws Exception {
         String endpoint = "http://127.0.0.1:8086/soap/";
         JSONObject requestBody = new JSONObject();
-        requestBody.put("ItemName","Demo_W7.1001.D3");
-        getWebServiceResultKeyValueStyle(endpoint, requestBody);
+        //requestBody.put("ItemName","Demo_W7.1001.D3");
+        requestBody = JSONObject.parseObject("{\"Options\":{\"ReturnItemName\":\"true\"},\"ItemList\":{\"Items\":{\"ItemName\":[\"Demo_W7.1001.D3.回风温度\",\"Demo_W7.1001.D3.送风湿度\"]}}}");
+        //requestBody = JSONObject.parseObject("{\"Options\":{\"ReturnItemName\":\"true\"},\"ItemList\":{\"Items\":{\"ItemName\":\"Demo_W7.1001.D3.回风温度\"}}}");
+        //requestBody = JSONObject.parseObject("{\"ItemList\":{\"Items\":{\"ItemName\":[\"Demo_W7.1001.D3.回风温度\",\"Demo_W7.1001.D3.送风湿度\"]}}}");
+
+        System.out.println("request body: " + requestBody.toString());
+
+        ArrayList tempList = new ArrayList();
+        tempList.add("Demo_W7.1001.D3.送风湿度");
+        tempList.add("Demo_W7.1001.D3.回风温度");
+
+        requestBody.getJSONObject("ItemList").getJSONObject("Items").put("ItemName",tempList);
+
+        System.out.println("request body: " + requestBody.toString());
+        Object tempObj = requestBody.getJSONObject("ItemList").getJSONObject("Items").get("ItemName");
+        System.out.println(tempObj.toString());
+        if (tempObj instanceof ArrayList) {
+            System.out.println("I'm a ArrayList !!!");
+        }
+        if (tempObj instanceof JSONArray) {
+            System.out.println("I'm a JSONArray !!!");
+        }
+        if (tempObj instanceof List) {
+            System.out.println("I'm a List !!!");
+        }
+        getWebServiceResultKeyValueStyle(endpoint, requestBody, "Read");
     }
 
-    public static void getWebServiceResultKeyValueStyle(String endpoint, /*List<HeaderMap> headerMapList, */JSONObject requestBody/*ServiceParam serviceParam*/) throws Exception {
+    public static void getWebServiceResultKeyValueStyle(String endpoint, JSONObject requestBody, String operation) throws Exception {
 
         /*WebService webService = serviceParam.getWebService();
         String operation = webService == null ? null : webService.getOperation();
         String namespace = webService == null ? null : webService.getNamespace();
         //String resType = webService == null ? null : webService.getRespType();*/
-        String operation = "Browse";
+        //String operation = "Read";
         String namespace = "http://opcfoundation.org/webservices/XMLDA/1.0/";
 
         //  创建消息对象
@@ -67,7 +95,7 @@ public class TestInfomgrSendSoapMessage {
         }*/
         //这里将Content-Type设置为"text/xml; charset=utf-8"，防止用户遗忘设置header的情况。如果用户有设置，则该项无效。
         mh.addHeader("Content-Type","text/xml; charset=utf-8");
-        mh.addHeader("SOAPAction","http://opcfoundation.org/webservices/XMLDA/1.0/Browse");
+        mh.addHeader("SOAPAction","http://opcfoundation.org/webservices/XMLDA/1.0/" + operation);
 
         // 获取soap的信封
         SOAPEnvelope envelope = message.getSOAPPart().getEnvelope();
@@ -81,11 +109,11 @@ public class TestInfomgrSendSoapMessage {
         SOAPElement bodyElement = body.addBodyElement(bodyName);
 
         //见函数说明
-        addAttributeForbodyElement(bodyElement, requestBody, operation);
+        HttpClientPoolUtils.addAttributeForbodyElement(bodyElement, requestBody, operation);
         System.out.println(soapMessageToString(message));
         System.out.println("#################");
         //见函数说明
-        addChildElementForElement(bodyElement, requestBody);
+        HttpClientPoolUtils.addChildElementForElement(bodyElement, requestBody);
         System.out.println(soapMessageToString(message));
 
         int httpCode = -1;
