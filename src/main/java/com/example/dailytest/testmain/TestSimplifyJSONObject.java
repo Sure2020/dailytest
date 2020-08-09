@@ -22,6 +22,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 /**
  * @program: com.example.dailytest.testmain
  * @description: xxx
@@ -42,6 +44,7 @@ public class TestSimplifyJSONObject {
         System.out.println("##############################");
         System.out.println(jsonObject);
     }
+
     /**
      * @description: 精简json对象。就是把指定的key向外挪一层。
      * @param: 
@@ -54,21 +57,46 @@ public class TestSimplifyJSONObject {
     递归终结条件：keyset中包含targetKey
     递归终结动作：保存当前targetKey的targetValue，保存父key，remove父key，新增父key:targetValue
      */
-    public static void simplifyJSONObject (JSONObject sourceJSONObject, String targetKey, JSONObject parentJSONObject, String parentKey){
-        if(sourceJSONObject.keySet().contains(targetKey) && parentKey != null) {
-            Object targetValue = sourceJSONObject.get(targetKey);
-            parentJSONObject.remove(targetKey);
-            parentJSONObject.put(parentKey, targetValue.toString());
-        } else {
-            for (String currentKey : sourceJSONObject.keySet()){
-                Object currentObject = sourceJSONObject.get(currentKey);
-                if(currentObject instanceof JSONObject){
-                    simplifyJSONObject((JSONObject)currentObject, targetKey, sourceJSONObject, currentKey);
+    public static void simplifyJSONObject (Object sourceObject, String targetKey, JSONObject parentJSONObject, String parentKey){
+        if(sourceObject instanceof JSONObject) {
+            JSONObject sourceJSONObject = (JSONObject) sourceObject;
+            if (sourceJSONObject.keySet().contains(targetKey) && parentKey != null) {
+                Object targetValue = sourceJSONObject.get(targetKey);
+                parentJSONObject.remove(targetKey);
+                parentJSONObject.put(parentKey, targetValue.toString());
+            } else {
+                for (String currentKey : sourceJSONObject.keySet()) {
+                    Object currentObject = sourceJSONObject.get(currentKey);
+                    if (currentObject instanceof JSONObject) {
+                        simplifyJSONObject(currentObject, targetKey, sourceJSONObject, currentKey);
+                    } else if (currentObject instanceof List) {
+                        List currentList = (List) currentObject;
+                        for(Object currentElementObj : currentList){
+                            if(currentElementObj instanceof JSONObject) {
+                                simplifyJSONObject(currentElementObj, targetKey, null, null);
+                            } else {
+                                log.error("目前只支持元素为JSONObject类型的List");
+                                continue;
+                            }
+                        }
+                    } else {
+                        //这个分支一般就是value为String类型时，无需处理
+                        continue;
+                    }
+                }
+            }
+        } else if (sourceObject instanceof List) {
+            List sourceList = (List) sourceObject;
+            for(Object currentElementObj : sourceList){
+                if(currentElementObj instanceof JSONObject) {
+                    simplifyJSONObject(currentElementObj, targetKey, null, null);
                 } else {
+                    log.error("目前只支持元素为JSONObject类型的List");
                     continue;
                 }
-
             }
+        } else {
+            log.error("不支持的类型，当前对象内容为： {}", sourceObject.toString());
         }
     }
 }
