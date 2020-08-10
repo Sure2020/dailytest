@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.dailytest.testmain.TestSOAPElement.*;
+import static com.example.dailytest.testmain.TestSimplifyJSONObject.simplifyJSONObject;
 
 
 /**
@@ -46,15 +47,15 @@ public class TestInfomgrSendSoapMessage {
         String endpoint = "http://127.0.0.1:8086/soap/";
         JSONObject requestBody = new JSONObject();
         //requestBody.put("ItemName","Demo_W7.1001.D3");
-        requestBody = JSONObject.parseObject("{\"Options\":{\"ReturnItemName\":\"true\"},\"ItemList\":{\"Items\":{\"ItemName\":[\"Demo_W7.1001.D3.回风温度\",\"Demo_W7.1001.D3.送风湿度\"]}}}");
+        requestBody = JSONObject.parseObject("{\"Options\":{\"ReturnItemName\":\"true\"},\"ItemList\":{\"Items\":{\"ItemName\":[\"Demo_W7.1001.D3.风机启动\",\"Demo_W7.1001.D3.风阀控制\"]}}}");
         //requestBody = JSONObject.parseObject("{\"Options\":{\"ReturnItemName\":\"true\"},\"ItemList\":{\"Items\":{\"ItemName\":\"Demo_W7.1001.D3.回风温度\"}}}");
         //requestBody = JSONObject.parseObject("{\"ItemList\":{\"Items\":{\"ItemName\":[\"Demo_W7.1001.D3.回风温度\",\"Demo_W7.1001.D3.送风湿度\"]}}}");
 
         System.out.println("request body: " + requestBody.toString());
 
         ArrayList tempList = new ArrayList();
-        tempList.add("Demo_W7.1001.D3.送风湿度");
-        tempList.add("Demo_W7.1001.D3.回风温度");
+        tempList.add("Demo_W7.1001.D3.风机启动");
+        tempList.add("Demo_W7.1001.D3.风阀控制");
 
         requestBody.getJSONObject("ItemList").getJSONObject("Items").put("ItemName",tempList);
 
@@ -130,7 +131,7 @@ public class TestInfomgrSendSoapMessage {
             e.printStackTrace();
         }
 
-        SOAPBody responseBody = response.getSOAPBody();
+        /*SOAPBody responseBody = response.getSOAPBody();
         String responseBodyStr = convertToString(responseBody);
         System.out.println("responseBodyStr:\n" + responseBodyStr);
         String responseBodyJSONObjectStr = XML.toJSONObject(responseBodyStr).toString();
@@ -139,6 +140,19 @@ public class TestInfomgrSendSoapMessage {
         resultJSONObject.put("code",200);
         resultJSONObject.put("message","成功");
         log.info("解析后结果:" + resultJSONObject.toString());
+        //return HttpClientResult.build(httpCode, resultJSONObject.toJSONString());*/
+        SOAPBody responseBody = response.getSOAPBody();
+        String responseBodyStr = convertToString(responseBody);
+        log.info("responseBodyStr:\n" + responseBodyStr);
+        String responseBodyJSONObjectStr = XML.toJSONObject(responseBodyStr).toString();
+
+        JSONObject resultJSONObject = JSONObject.parseObject(responseBodyJSONObjectStr);
+        log.info("转换前：\n{}", resultJSONObject);
+        simplifyJSONObject(resultJSONObject, "content", null, null);
+        log.info("转换后：\n{}", resultJSONObject);
+        resultJSONObject.put("code",200);
+        resultJSONObject.put("message","成功");
+        //log.info("解析后结果:\n{}", resultJSONObject.toString());
         //return HttpClientResult.build(httpCode, resultJSONObject.toJSONString());
     }
 }
