@@ -15,5 +15,10 @@ public class TestHashCode {
         List listb = new ArrayList();
         listb.add("a");
         System.out.println(lista.hashCode() + "\n" + listb.hashCode());
+
+        String stra = "a";
+        String strb = "97";
+        Integer inta = 97;
+        System.out.println(stra.hashCode() + "  " + strb.hashCode() + "  " + inta.hashCode());
     }
 }
