@@ -221,6 +221,16 @@
 		</dependency>
 		<!-- JSONToExcel所用依赖 -->
 
+		<!-- oracle所用依赖 -->
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>19.7.0.0</version>
+		</dependency>
+		<!-- oracle所用依赖 -->
+
+
+
 
 	</dependencies>
 
