@@ -36,7 +36,9 @@ public class TestOracleUseConnection {
         Connection connection = null;
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl",
+            String url = "jdbc:oracle:thin:@192.168.56.156:1521:orcl";
+            //String url = "jdbc:oracle:thin:@localhost:1521/orcl";
+            connection = DriverManager.getConnection(url,
                     "testuser","Aa123456");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

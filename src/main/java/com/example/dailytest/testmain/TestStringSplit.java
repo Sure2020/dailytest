@@ -26,7 +26,7 @@ package com.example.dailytest.testmain;
  **/
 public class TestStringSplit {
     public static void main(String[] args) {
-        String sourceStr = "mysql://localhost:1521/orcl/view/yjs/user/password";
+        String sourceStr = "mysql://localhost:1521:orcl/view/yjs/user/password";
         String[] stringArray = sourceStr.split("\\/");
         for (String str : stringArray) {
             System.out.print(str + " ");
