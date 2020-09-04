@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @program: com.example.lishuiduijie_test.testmain
@@ -67,6 +68,13 @@ public class TestValueTrans {
         //一个方法不能让对象参数引用一个新的对象。
         changeName(s1);
         System.out.println(s1.getName());
+
+        //简单测试利用值传递实现对引用对象list的清除
+       List list = new ArrayList();
+        list.add("a");
+        System.out.println(list.size());
+        clearList(list);
+        System.out.println(list.size());
     }
 
     public static void swap(Student x, Student y) {
@@ -95,6 +103,11 @@ public class TestValueTrans {
         public void setName(String name) {
             this.name = name;
         }
+    }
+
+    public static void clearList(List list){
+        System.out.println(list.size());
+        list.clear();
     }
 }
 
