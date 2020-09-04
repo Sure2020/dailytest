@@ -48,5 +48,15 @@ public class TestStopWatch {
 
         System.out.println(sw.prettyPrint());
         System.out.println(sw.getTotalTimeMillis());
+        /*
+        prettyPrint：用自带格式输出所有任务信息。
+        getTaskInfo：获取所有任务的信息，即各个任务的名称和耗时。（如果想自定义输出一些内容，或者格式，可以从这里获取所有任务的信息）
+        getTotalTimeMillis：获取任务总耗时（毫秒）。
+        getTotalTimeSeconds：获取任务总耗时（秒）。
+        getTaskCount：获取任务总数。
+        getLastTaskName：获取最后一个任务的名称。
+        getLastTaskTimeMillis：获取最后一个任务的耗时（毫秒）。
+        getLastTaskInfo：获取最后一个任务的信息，即任务的名称和耗时。
+         */
     }
 }
