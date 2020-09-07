@@ -28,26 +28,38 @@ import org.springframework.util.StopWatch;
  **/
 public class TestStopWatch {
     public static void main(String[] args) throws InterruptedException {
-        StopWatch sw = new StopWatch();
+        StopWatch sw1 = new StopWatch();
+        StopWatch sw2 = new StopWatch();
+        StopWatch sw_all = new StopWatch();
 
-        sw.start("校验耗时");
+        sw_all.start("总耗时");
+
+        sw1.start("校验耗时");
         Thread.sleep(1000);
-        sw.stop();
+        sw1.stop();
+        System.out.println(sw1.prettyPrint());
 
-        sw.start("组装报文耗时");
+        sw2.start("组装报文耗时");
         Thread.sleep(2000);
-        sw.stop();
+        sw2.stop();
+        System.out.println(sw2.prettyPrint());
 
-        sw.start("请求耗时");
+        sw1.start("请求耗时");
         Thread.sleep(1000);
-        sw.stop();
+        sw1.stop();
 
-        sw.start("my watch!");
+        sw2.start("my watch!");
         Thread.sleep(1000);
-        sw.stop();
+        sw2.stop();
 
-        System.out.println(sw.prettyPrint());
-        System.out.println(sw.getTotalTimeMillis());
+        sw_all.stop();
+
+        System.out.println(sw1.prettyPrint());
+        System.out.println(sw2.prettyPrint());
+        System.out.println("total "+sw1.getTotalTimeMillis());
+        System.out.println("total "+sw2.getTotalTimeMillis());
+        System.out.println("total "+sw_all.getTotalTimeMillis());
+
         /*
         prettyPrint：用自带格式输出所有任务信息。
         getTaskInfo：获取所有任务的信息，即各个任务的名称和耗时。（如果想自定义输出一些内容，或者格式，可以从这里获取所有任务的信息）
