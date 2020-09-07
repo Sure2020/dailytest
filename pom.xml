@@ -228,9 +228,15 @@
 			<version>19.7.0.0</version>
 		</dependency>
 		<!-- oracle所用依赖 -->
-
-
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 	</dependencies>
 
