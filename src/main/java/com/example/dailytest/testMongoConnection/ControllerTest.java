@@ -116,6 +116,13 @@ public class ControllerTest {
                 log.info("the result is: {}", mongoTemplate.find(query2, DBTestModel.class).toString());
 
 
+                Query query3 = new Query().addCriteria(Criteria.where("Id").is("a"));
+                //query3.fields().include("dbEntityTestIndexList"); //包含该字段
+                query3.fields().exclude("dbEntityTestIndexList");//不包含该字段
+                log.info("query3: {}", query3);
+                log.info("the result is: {}", mongoTemplate.find(query3, DBTestModel.class).toString());
+
+
                 /*MongoCollection<Document> collection =
                         mongoClient.getDatabase("dailyTest").getCollection("DBTestModel");
                 FindIterable<Document> findIterable = collection.find()
