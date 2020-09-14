@@ -8,6 +8,13 @@ public class TestLambda {
 
         // 类型声明
         MathOperation addition = (int a, int b) -> a + b;
+        // 相当于
+        MathOperation addition2 = new MathOperation() {
+            @Override
+            public int operation(int a, int b) {
+                return a + b;
+            }
+        };
 
         // 不用类型声明
         MathOperation subtraction = (a, b) -> a - b;
@@ -19,6 +26,8 @@ public class TestLambda {
         MathOperation division = (int a, int b) -> a / b;
 
         System.out.println("10 + 5 = " + tester.operate(10, 5, addition));
+        System.out.println("10 + 5 = " + tester.operate(10, 5, addition2));
+
         System.out.println("10 - 5 = " + tester.operate(10, 5, subtraction));
         System.out.println("10 x 5 = " + tester.operate(10, 5, multiplication));
         System.out.println("10 / 5 = " + tester.operate(10, 5, division));
@@ -30,6 +39,14 @@ public class TestLambda {
         // 用括号
         GreetingService greetService2 = (message) ->
                 System.out.println("Hello " + message);
+
+        // 相当于
+        GreetingService greetService3 = new GreetingService() {
+            @Override
+            public void sayMessage(String message) {
+                System.out.println("Hello " + message);
+            }
+        };
 
         greetService1.sayMessage("Runoob");
         greetService2.sayMessage("Google");
