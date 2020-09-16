@@ -18,6 +18,8 @@
 
 package com.example.dailytest.testmain;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.IntSummaryStatistics;
@@ -87,8 +89,24 @@ public class TestStreamCollectors {
         filtered = strings.stream().filter(string ->!string.isEmpty()).collect(Collectors.toList());
         System.out.println("筛选后的列表: " + filtered);
 
-        mergedString = strings.stream().filter(string ->!string.isEmpty()).collect(Collectors.joining(", "));
+        mergedString = strings.stream().filter(string ->!string.isEmpty()).collect(Collectors.joining(","));
         System.out.println("合并字符串: " + mergedString);
+
+        mergedString = strings.stream()
+                .filter(string ->!string.isEmpty())
+                .map(string -> "'" + string + "'")
+                .map(s -> "." + s + ".")
+                .collect(Collectors.joining(","));
+        System.out.println("合并字符串: " + mergedString);
+
+        List<StreamTestEntity> streamTestEntityList = new ArrayList<>();
+        streamTestEntityList.add(new StreamTestEntity("a","b"));
+        streamTestEntityList.add(new StreamTestEntity("x","y"));
+        String streamString = streamTestEntityList.stream()
+                .map(streamTestEntity -> streamTestEntity.getParama())
+                .map(s -> "'"+s+"'")
+                .collect(Collectors.joining(","));
+        System.out.println("合并字符串: " + streamString);
 
         squaresList = numbers.stream().map( i ->i*i).distinct().collect(Collectors.toList());
         System.out.println("Squares List: " + squaresList);
@@ -210,5 +228,15 @@ public class TestStreamCollectors {
 
     private static int getAverage(List<Integer> numbers){
         return getSum(numbers) / numbers.size();
+    }
+}
+@Data
+class StreamTestEntity {
+    private String parama;
+    private String paramb;
+
+    public StreamTestEntity(String parama, String paramb) {
+        this.parama = parama;
+        this.paramb = paramb;
     }
 }
