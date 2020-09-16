@@ -115,12 +115,17 @@ public class ControllerTest {
                 log.info("query2: {}", query2);
                 log.info("the result is: {}", mongoTemplate.find(query2, DBTestModel.class).toString());
 
-
+                // 试用查询结果包含或取除指定字段
                 Query query3 = new Query().addCriteria(Criteria.where("Id").is("a"));
                 //query3.fields().include("dbEntityTestIndexList"); //包含该字段
                 query3.fields().exclude("dbEntityTestIndexList");//不包含该字段
                 log.info("query3: {}", query3);
                 log.info("the result is: {}", mongoTemplate.find(query3, DBTestModel.class).toString());
+
+                // 试用 where in 条件查询
+                Query query4 = new Query().addCriteria(Criteria.where("testParam1").in(Arrays.asList("testParam1","testParam111")));
+                log.info("query4: {}", query4);
+                log.info("the result is: {}", mongoTemplate.find(query4, DBEntityTest.class).toString());
 
 
                 /*MongoCollection<Document> collection =
