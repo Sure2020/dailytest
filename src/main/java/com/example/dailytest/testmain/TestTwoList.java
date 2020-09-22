@@ -50,6 +50,13 @@ public class TestTwoList {
         list1.forEach(s -> System.out.println(s));
         System.out.println("#########################");
         list2.forEach(s -> System.out.println(s));
+
+        System.out.println("******************");
+        System.out.println(list1);
+        System.out.println(list2);
+        List list3 = listRemove(list1, list2);
+        System.out.println(list3);
+
     }
 
     public static void test3(List list1, List list2) {
@@ -59,5 +66,14 @@ public class TestTwoList {
         l2 = list2;*/
         l1.removeAll(l2);
         System.out.println(l1);
+    }
+
+    public static List<String> listRemove(List list1, List list2) {
+        List<String> l1 = new ArrayList<String>(list1);
+        List<String> l2 = new ArrayList<String>(list2);
+        l1.removeAll(l2);
+        System.out.println(l1);
+
+        return l1;
     }
 }
