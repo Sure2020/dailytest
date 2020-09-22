@@ -84,6 +84,10 @@ public class ControllerTest {
                 System.out.println("read");
                 dbServiceTest.readDB(0,10);
                 break;
+            case "remove":
+                System.out.println("remove");
+                dbDaoTest.removeTest(Arrays.asList("testParam111"));
+                break;
             case "insertData":
                 log.info("insertData");
                 DBEntityTestIndex dbEntityTestIndex1 = new DBEntityTestIndex();

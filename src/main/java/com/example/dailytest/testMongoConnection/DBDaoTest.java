@@ -18,6 +18,7 @@
 
 package com.example.dailytest.testMongoConnection;
 
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -25,6 +26,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @program: com.example.dailytest.testMongoConnection
@@ -63,6 +66,11 @@ public class DBDaoTest {
 
     public void insertData(DBTestModel dbTestModel){
         mongoTemplate.insert(dbTestModel);
+    }
+    public void removeTest(List<String> list) {
+        System.out.println("list: " + list);
+        DeleteResult deleteResult = mongoTemplate.remove(new Query(Criteria.where("testID").is("testid2").and("testParam1").in(list)), DBEntityTest.class);
+        System.out.println("deleteResult: " + deleteResult);
     }
 
     /*public void save(Polygon polygon){
