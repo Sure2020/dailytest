@@ -37,7 +37,7 @@ import java.io.InputStream;
  **/
 public class TestExcel {
     public static void main(String[] args) throws FileNotFoundException {
-        String filePath = "E:/doc/山东大学/11-13.xlsx";
+        String filePath = "E:/doc/山东大学/入住20200919.xlsx";
         InputStream inputStream = new FileInputStream(filePath);
         readExcelFile(inputStream, filePath);
     }
