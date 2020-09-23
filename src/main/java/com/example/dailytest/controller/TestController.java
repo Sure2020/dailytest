@@ -21,6 +21,7 @@ package com.example.dailytest.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.example.dailytest.entity.DeviceDetail;
 import com.example.dailytest.entity.request.DeviceDataChanged;
+import com.example.dailytest.testStaticMethodAndAutowired.TestStaticMethodAndAutowired;
 import com.example.dailytest.testmain.TestAtValue;
 import com.example.dailytest.utils.Constant;
 import com.example.dailytest.utils.ConstantProperties;
@@ -145,5 +146,10 @@ public class TestController {
         resultObj.put("deviceList", resultList);
 
         return resultObj;
+    }
+
+    @RequestMapping("/test/TestStaticMethodAndAutowired")
+    public void testStaticMethodAndAutowired () {
+        TestStaticMethodAndAutowired.testStaticMethodAndAutowired();
     }
 }
