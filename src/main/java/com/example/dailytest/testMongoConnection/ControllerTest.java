@@ -61,6 +61,7 @@ public class ControllerTest {
         String testParam2 = requestObj.getString("testParam2");
         String testParam3 = requestObj.getString("testParam3");
         String operation = requestObj.getString("operation");
+        String regexStr = requestObj.getString("regexStr");
         DBEntityTest dbEntityTest = new DBEntityTest();
         dbEntityTest.setTestID(testID);
         dbEntityTest.setTestParam1(testParam1);
@@ -131,6 +132,12 @@ public class ControllerTest {
                 log.info("query4: {}", query4);
                 log.info("the result is: {}", mongoTemplate.find(query4, DBEntityTest.class).toString());
 
+                // 试用regex模糊查询
+                //Query query5 = new Query().addCriteria(Criteria.where("Id").is("a.b.c"));
+                Query query5 = new Query().addCriteria(Criteria.where("Id").regex(regexStr));
+                log.info("query5: {}", query5);
+                log.info("query5: {}", query5.toString());
+                log.info("the result is: {}", mongoTemplate.find(query5, DBTestModel.class).toString());
 
                 /*MongoCollection<Document> collection =
                         mongoClient.getDatabase("dailyTest").getCollection("DBTestModel");
