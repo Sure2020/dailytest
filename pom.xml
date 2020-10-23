@@ -259,6 +259,16 @@
 		</dependency>
 		<!--解析Excel-->
 
+		<!--测试oom用-->
+		<!-- https://mvnrepository.com/artifact/javassist/javassist -->
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.1.GA</version>
+		</dependency>
+		<!--测试oom用-->
+
+
 	</dependencies>
 
 	<build>
