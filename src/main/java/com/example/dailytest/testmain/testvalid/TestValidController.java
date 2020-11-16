@@ -18,9 +18,8 @@
 
 package com.example.dailytest.testmain.testvalid;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -32,10 +31,18 @@ import javax.validation.Valid;
  **/
 @RestController
 public class TestValidController {
-    @RequestMapping("/test/valid")
+    @Autowired TestValidOrdinaryClass testValidOrdinaryClass;
+    @RequestMapping("/test/valid/post")
     public String testValid(@Valid @RequestBody TestValidClass testValidClass){
         System.out.println(testValidClass);
+        return "test valid post";
+    }
 
-        return "test valid";
+    @RequestMapping("/test/valid/get")
+    public String testValidGet(@RequestParam("param1") String param1, @RequestParam("param2") String param2 ){
+        //TestValidOrdinaryClass testValidOrdinaryClass = new TestValidOrdinaryClass();
+        testValidOrdinaryClass.test(param1,param2);
+        //TestValidOrdinaryClass.test(param1,param2);
+        return "test valid get";
     }
 }
