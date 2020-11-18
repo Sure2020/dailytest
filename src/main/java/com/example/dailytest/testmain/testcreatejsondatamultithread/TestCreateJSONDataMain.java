@@ -23,6 +23,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.assertj.core.util.Lists;
 import org.springframework.util.StopWatch;
 
+import java.io.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -43,7 +44,7 @@ public class TestCreateJSONDataMain {
 
     //static JSONArray jsonArray = new JSONArray();
     static List<JSONObject> list = Collections.synchronizedList(Lists.newArrayList());
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start("TestCreateJSONDataMain");
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
@@ -67,6 +68,15 @@ public class TestCreateJSONDataMain {
         stopWatch.stop();
         System.out.println(stopWatch.getTotalTimeMillis());
         System.out.println(list.size());
-        //System.out.println(list.toString());
+        /*StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(list.toString());*/
+
+        FileOutputStream fileOutputStream = new FileOutputStream("E:/temp/jsondata.txt");
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+        BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+        bufferedWriter.write(list.toString());
+
+        bufferedWriter.flush();
+        bufferedWriter.close();
     }
 }
