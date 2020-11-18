@@ -57,6 +57,21 @@ public class TestLambda {
                 System.out.println(salutation + salutation2 + message);
 
         greetingService3.sayMessage("Sure");
+
+        // ############################ 创建多线程的传统风格和Lambda风格对比
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println('a');
+            }
+        };
+        Runnable runnable1 = () -> {
+            System.out.println('b');
+        };
+        for (int i = 0; i < 3; i++) {
+            Thread thread = new Thread(runnable1);
+            thread.start();
+        }
     }
 
     interface MathOperation {
