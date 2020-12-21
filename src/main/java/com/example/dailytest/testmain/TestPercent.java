@@ -40,6 +40,18 @@ public class TestPercent {
         System.out.println(p);
 
         NumberFormat numberFormat = NumberFormat.getPercentInstance();
+
+        String s1 = "21.8%";
+        String s2 = "-21.7%";
+
+        try {
+            Number n1 = numberFormat.parse(s1);
+            Number n2 = numberFormat.parse(s2);
+            System.out.println("小数点字符串转百分数" + n1.floatValue() + " , " + n2.floatValue());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         float f1 = 0.21813f;
         float f2 = -0.21734f;
         try {
