@@ -31,7 +31,8 @@ public class TestPercent {
     public static void main(String[] args) {
         int a = 10;
         int b = 3;
-        double f = (double) a / (double) b;
+        double f = (double) a / b;
+        //double f = a/b;
         System.out.println(f);
 
         float price = (float) 1.2;
@@ -52,10 +53,10 @@ public class TestPercent {
             e.printStackTrace();
         }
 
-        float f1 = 0.21813f;
+        float f1 = 0.21f;
         float f2 = -0.21734f;
         try {
-            numberFormat.setMaximumFractionDigits(2); //精确到3位。
+            numberFormat.setMaximumFractionDigits(2); //精确到2位。
 
             String s3 = numberFormat.format(f1);
             String s4 = numberFormat.format(f2);
