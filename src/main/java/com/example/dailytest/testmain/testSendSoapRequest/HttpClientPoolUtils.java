@@ -771,6 +771,48 @@ public class HttpClientPoolUtils {
         return xmlOrJson(hcr, serviceParam);
     }*/
 
+    /**
+     * @description: 给智慧青城定制的函数。相比原函数去掉最后一个不需要的参数serviceParam
+     * @param: 
+     * @return: 
+     * @author: w15021
+     * @date: 2020/12/25
+     */
+    public static HttpClientResult getHcr(String svcMethod, String url, String contentType, JSONObject jsonresult, List<HeaderMap> headerMapList) {
+        HttpClientResult hcr;
+        if (Constant.GET.equalsIgnoreCase(svcMethod)) {
+            hcr = HttpClientPoolUtils.getGetResult(url, headerMapList);
+        } else if (Constant.POST.equalsIgnoreCase(svcMethod)) {
+            hcr = HttpClientPoolUtils.getPostResult(url, contentType, jsonresult, headerMapList);
+        } else if (Constant.PUT.equalsIgnoreCase(svcMethod)) {
+            hcr = HttpClientPoolUtils.getPutResult(url, contentType, jsonresult, headerMapList);
+        } else {
+            hcr = HttpClientPoolUtils.getDeleteResult(url, headerMapList);
+        }
+        return hcr;
+    }
+
+    /**
+     * @description: 给智慧青城定制的函数，无header参数。相比原函数去掉最后一个不需要的参数serviceParam
+     * @param: 
+     * @return: 
+     * @author: w15021
+     * @date: 2020/12/28
+     */
+    public static HttpClientResult getHcr(String svcMethod, String url, String contentType, JSONObject jsonresult) {
+        HttpClientResult hcr;
+        if (Constant.GET.equalsIgnoreCase(svcMethod)) {
+            hcr = HttpClientPoolUtils.getGetResult(url);
+        } else if (Constant.POST.equalsIgnoreCase(svcMethod)) {
+            hcr = HttpClientPoolUtils.getPostResult(url, contentType, jsonresult);
+        } else if (Constant.PUT.equalsIgnoreCase(svcMethod)) {
+            hcr = HttpClientPoolUtils.getPutResult(url, contentType, jsonresult);
+        } else {
+            hcr = HttpClientPoolUtils.getDeleteResult(url);
+        }
+        return hcr;
+    }
+
     /*public static HttpClientResult getWebServiceResult(String url, String contentType, List<HeaderMap> headerMapList, JSONObject requestBody, ServiceParam serviceParam) {
         log.info("网络请求url:" + url);
         log.info("请求参数：" + requestBody.toString());
@@ -1075,7 +1117,7 @@ public class HttpClientPoolUtils {
         return result;
     }
 
-    /*private static HttpClientResult xmlOrJson(HttpClientResult httpClientResult, ServiceParam serviceParam) {
+    private static HttpClientResult xmlOrJson(HttpClientResult httpClientResult, ServiceParam serviceParam) {
         WebService webService = serviceParam.getWebService();
         String resType = webService == null ? null : webService.getRespType();
         String result = (String) httpClientResult.getEntity();
@@ -1099,5 +1141,5 @@ public class HttpClientPoolUtils {
         }
         log.info("解析后结果:" + result);
         return HttpClientResult.build(code, result);
-    }*/
+    }
 }

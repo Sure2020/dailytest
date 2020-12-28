@@ -25,6 +25,7 @@ import com.example.dailytest.testStaticMethodAndAutowired.TestStaticMethodAndAut
 import com.example.dailytest.testmain.TestAtValue;
 import com.example.dailytest.utils.Constant;
 import com.example.dailytest.utils.ConstantProperties;
+import com.example.dailytest.zhihuiqingcheng.TestXianHongAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -151,5 +152,11 @@ public class TestController {
     @RequestMapping("/test/TestStaticMethodAndAutowired")
     public void testStaticMethodAndAutowired () {
         TestStaticMethodAndAutowired.testStaticMethodAndAutowired();
+    }
+
+    @RequestMapping("/test/zhihuiqingcheng/xianhong")
+    public Object testZhihuiqingchengXianhong(){
+        Object object = TestXianHongAPI.main(null);
+        return object;
     }
 }

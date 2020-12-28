@@ -34,6 +34,22 @@ public class ConstantProperties {
     private static String testValue;
     private static String callbackBaseUrl;
 
+    // 智慧青城显鸿平台常量
+    private static String grantType;
+    private static String clientId;
+    private static String clientSecret;
+    private static String baseUrl;
+    private static String getTokenPath;
+    private static String getTokenMethod;
+    private static String getDeviceListPath;
+    private static String getDeviceListMethod;
+
+
+
+
+
+    private static String headersAuthorization;
+
     public static String getTestValue() {
         return testValue;
     }
@@ -50,5 +66,88 @@ public class ConstantProperties {
     @Value("${lishuiduijie.callbackBaseUrl}")
     public void setCallbackBaseUrl(String callbackBaseUrl) {
         this.callbackBaseUrl = callbackBaseUrl;
+    }
+
+    // 智慧青城显鸿平台常量
+
+    public static String getGrantType() {
+        return grantType;
+    }
+
+    @Value("${zhihuiqingcheng.xianhong.grant_type}")
+    public void setGrantType(String grantType) {
+        ConstantProperties.grantType = grantType;
+    }
+
+    public static String getClientId() {
+        return clientId;
+    }
+
+    @Value("${zhihuiqingcheng.xianhong.client_id}")
+    public void setClientId(String clientId) {
+        ConstantProperties.clientId = clientId;
+    }
+
+    public static String getClientSecret() {
+        return clientSecret;
+    }
+
+    @Value("${zhihuiqingcheng.xianhong.client_secret}")
+    public void setClientSecret(String clientSecret) {
+        ConstantProperties.clientSecret = clientSecret;
+    }
+
+    public static String getBaseUrl() {
+        return baseUrl;
+    }
+
+    @Value("${zhihuiqingcheng.xianhong.baseUrl}")
+    public void setBaseUrl(String baseUrl) {
+        ConstantProperties.baseUrl = baseUrl;
+    }
+
+    public static String getGetTokenPath() {
+        return getTokenPath;
+    }
+
+    @Value("${zhihuiqingcheng.xianhong.api.getToken.path}")
+    public void setGetTokenPath(String getTokenPath) {
+        ConstantProperties.getTokenPath = getTokenPath;
+    }
+
+    public static String getGetTokenMethod() {
+        return getTokenMethod;
+    }
+
+    @Value("${zhihuiqingcheng.xianhong.api.getToken.method}")
+    public void setGetTokenMethod(String getTokenMethod) {
+        ConstantProperties.getTokenMethod = getTokenMethod;
+    }
+
+    public static String getGetDeviceListPath() {
+        return getDeviceListPath;
+    }
+
+    @Value("${zhihuiqingcheng.xianhong.api.getDeviceList.path}")
+    public void setGetDeviceListPath(String getDeviceListPath) {
+        ConstantProperties.getDeviceListPath = getDeviceListPath;
+    }
+
+    public static String getGetDeviceListMethod() {
+        return getDeviceListMethod;
+    }
+
+    @Value("${zhihuiqingcheng.xianhong.api.getDeviceList.method}")
+    public void setGetDeviceListMethod(String getDeviceListMethod) {
+        ConstantProperties.getDeviceListMethod = getDeviceListMethod;
+    }
+
+    public static String getHeadersAuthorization() {
+        return headersAuthorization;
+    }
+
+    @Value("${zhihuiqingcheng.xianhong.headers.Authorization}")
+    public void setHeadersAuthorization(String headersAuthorization) {
+        ConstantProperties.headersAuthorization = headersAuthorization;
     }
 }

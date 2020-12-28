@@ -25,6 +25,18 @@ package com.example.dailytest.utils;
  * @create: 2020-03-05
  **/
 public class Constant {
+
+    // 显鸿感知平台接口常量
+    public static final String GRANTTYPE = ConstantProperties.getGrantType();
+    public static final String CLIENTID = ConstantProperties.getClientId();
+    public static final String CLIENTSECRET = ConstantProperties.getClientSecret();
+    public static final String BASEURL = ConstantProperties.getBaseUrl();
+    public static final String GETTOKENPATH = ConstantProperties.getGetTokenPath();
+    public static final String GETTOKENMETHOD = ConstantProperties.getGetTokenMethod();
+    public static final String GETDEVICELISTPATH = ConstantProperties.getGetDeviceListPath();
+    public static final String GETDEVICELISTMETHOD = ConstantProperties.getGetDeviceListMethod();
+    public static final String HEADERSAUTHORIZATION = ConstantProperties.getHeadersAuthorization();
+
 //    @Value("${lishuiduijie.callbackBaseUrl}")
 //    public static String callbackBaseUrl;
     /*@Autowired
