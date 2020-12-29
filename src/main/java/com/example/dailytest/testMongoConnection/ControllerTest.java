@@ -139,6 +139,20 @@ public class ControllerTest {
                 log.info("query5: {}", query5.toString());
                 log.info("the result is: {}", mongoTemplate.find(query5, DBTestModel.class).toString());
 
+                // 试用Aggregation分组聚合操作
+                Aggregation aggregationForCount = Aggregation.newAggregation(
+                        Aggregation.group("testParam1").count().as("count"),
+                        Aggregation.project("count").and("testParam1").previousOperation()
+                );
+                AggregationResults<MessageCount> outputTypeCount = mongoTemplate.aggregate(aggregationForCount, DBEntityTest.class, MessageCount.class);
+                //return outputTypeCount.getMappedResults();
+                System.out.println("测试数据统计的方法！！！");
+                List<MessageCount> messageCountList = outputTypeCount.getMappedResults();
+                System.out.println(outputTypeCount.getMappedResults());
+                System.out.println(messageCountList);
+                System.out.println(messageCountList.size());
+                //System.out.println(outputTypeCount.getRawResults());
+
                 /*MongoCollection<Document> collection =
                         mongoClient.getDatabase("dailyTest").getCollection("DBTestModel");
                 FindIterable<Document> findIterable = collection.find()
