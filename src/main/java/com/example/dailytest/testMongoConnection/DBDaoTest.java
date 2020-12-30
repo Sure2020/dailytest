@@ -45,6 +45,10 @@ public class DBDaoTest {
         mongoTemplate.insert(dbEntityTest);
     }
 
+    public void aggregationInsertTest(DBForAggregationTest dbForAggregationTest){
+        mongoTemplate.insert(dbForAggregationTest);
+    }
+
     public void saveTest(DBEntityTest dbEntityTest) {
         mongoTemplate.save(dbEntityTest);
     }

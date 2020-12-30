@@ -237,4 +237,70 @@ public class ControllerTest {
         return "hi";
 
     }
+
+    @PostMapping("test/mongodb/aggregation")
+    public Object mongodbAggregationTest(@RequestBody JSONObject requestObj){
+
+        System.out.println("requstObj: " + requestObj.toString());
+        String operation = requestObj.getString("operation");
+        switch (operation){
+            case "insert":
+                System.out.println("insert");
+
+                EntityForAggregationTest entityForAggregationTest = new EntityForAggregationTest();
+                DBForAggregationTest dbForAggregationTest = new DBForAggregationTest();
+
+                // 插入第一组数据
+                /*entityForAggregationTest.setDeviceId("a");
+                entityForAggregationTest.setDeviceTypeId("1");
+
+                dbForAggregationTest.setId("doc1");
+                dbForAggregationTest.setAttributes(entityForAggregationTest);
+                dbDaoTest.aggregationInsertTest(dbForAggregationTest);*/
+
+                // 插入第二组数据
+                /*entityForAggregationTest.setDeviceId("b");
+                entityForAggregationTest.setDeviceTypeId("2");
+
+                dbForAggregationTest.setId("doc2");
+                dbForAggregationTest.setAttributes(entityForAggregationTest);
+                dbDaoTest.aggregationInsertTest(dbForAggregationTest);*/
+
+                // 插入第三组数据
+                entityForAggregationTest.setDeviceId("c");
+                //entityForAggregationTest.setDeviceTypeId("2");
+
+                dbForAggregationTest.setId("doc3");
+                dbForAggregationTest.setAttributes(entityForAggregationTest);
+                dbDaoTest.aggregationInsertTest(dbForAggregationTest);
+
+                break;
+            case "find":
+                // 试用Aggregation分组聚合操作
+                Aggregation aggregationForCount = Aggregation.newAggregation(
+                        Aggregation.group("attributes.deviceTypeId").count().as("count"),
+                        Aggregation.project("count").and("deviceTypeId").previousOperation()
+                );
+                AggregationResults<MessageCount2> outputTypeCount = mongoTemplate.aggregate(aggregationForCount, DBForAggregationTest.class, MessageCount2.class);
+                //return outputTypeCount.getMappedResults();
+                System.out.println("测试数据统计的方法！！！");
+                List<MessageCount2> messageCountList = outputTypeCount.getMappedResults();
+                System.out.println(outputTypeCount.getMappedResults());
+                System.out.println(messageCountList);
+                int size = messageCountList.size();
+                System.out.println(size);
+                for(int i=0; i< size; i++){
+                    MessageCount2 messageCount2 = messageCountList.get(i);
+                    if(messageCount2.getDeviceTypeId() == null){
+                        size --;
+                    }
+                }
+                System.out.println(size);
+                break;
+
+            default:
+                System.out.println("other");
+        }
+        return "success";
+    }
 }
