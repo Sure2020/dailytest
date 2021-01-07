@@ -275,7 +275,7 @@ public class ControllerTest {
                 dbDaoTest.aggregationInsertTest(dbForAggregationTest);
 
                 break;
-            case "find":
+            case "aggregation":
                 // 试用Aggregation分组聚合操作
                 Aggregation aggregationForCount = Aggregation.newAggregation(
                         Aggregation.group("attributes.deviceTypeId").count().as("count"),
@@ -296,6 +296,13 @@ public class ControllerTest {
                     }
                 }
                 System.out.println(size);
+                break;
+            case "ne":
+                log.info("ne");
+                Query query_ne = new Query().addCriteria(Criteria.where("id").ne("doc1")/*.and("dbEntityTestIndexList.param1").is("a")*/);
+                log.info("query_ne: {}", query_ne);
+                //List<DBEntityTestIndex> resultList = mongoTemplate.find(query1, DBEntityTestIndex.class);
+                log.info("the result is: {}", mongoTemplate.find(query_ne, DBForAggregationTest.class).toString());
                 break;
 
             default:
