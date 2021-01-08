@@ -37,7 +37,16 @@ import java.util.List;
  **/
 @Slf4j
 public class TestXianHongAPI {
-    public static Object main(String[] args) {
+    //public static Object main(String[] args) {
+    public static JSONObject main(JSONObject jsonObject) {
+        int equipTypeId = -1;
+        int pageIndex = -1;
+        int pageSize = -1;
+        if (jsonObject != null && jsonObject.size() != 0) {
+            equipTypeId = jsonObject.getIntValue("equipTypeId");
+            pageIndex = jsonObject.getIntValue("pageIndex");
+            pageSize = jsonObject.getIntValue("pageSize");
+        }
 
         // 获取认证token
         JSONObject getTokenRequestBody = new JSONObject();
@@ -59,18 +68,21 @@ public class TestXianHongAPI {
             log.info("token获取异常，结果为空");
         }
 
-
         // 获取设备列表
-        JSONObject condition = new JSONObject();
-        condition.put("equipTypeId", 5);
-
-        JSONObject paging = new JSONObject();
-        paging.put("pageIndex", 1);
-        paging.put("pageSize", 1000);
-
         JSONObject getDeviceListRequestBody = new JSONObject();
-        getDeviceListRequestBody.put("condition", condition);
-        getDeviceListRequestBody.put("paging", paging);
+
+        if (equipTypeId != -1) {
+            JSONObject condition = new JSONObject();
+            condition.put("equipTypeId", equipTypeId);
+            getDeviceListRequestBody.put("condition", condition);
+        }
+
+        if (pageIndex != -1 && pageSize != -1) {
+            JSONObject paging = new JSONObject();
+            paging.put("pageIndex", pageIndex);
+            paging.put("pageSize", pageSize);
+            getDeviceListRequestBody.put("paging", paging);
+        }
 
         HeaderMap getDeviceListHeaderMap = new HeaderMap();
         getDeviceListHeaderMap.setKey(Constant.HEADERSAUTHORIZATION);
@@ -87,55 +99,64 @@ public class TestXianHongAPI {
 
         log.info("getDeviceListResult: {}", getDeviceListHcr);
         if (getDeviceListHcr == null) {
-            log.info("请求返回为空");
+            log.error("请求返回为空");
             return null;
         }
 
         Object getDeviceListHcrEntityObject = getDeviceListHcr.getEntity();
         if (getDeviceListHcrEntityObject == null) {
-            log.info("请求返回为空");
+            log.error("请求返回为空");
             return null;
         }
         JSONObject getDeviceListResultEntityJSONObject = JSONObject.parseObject(getDeviceListHcrEntityObject.toString());
         if (getDeviceListResultEntityJSONObject == null) {
-            log.info("请求返回为空");
+            log.error("请求返回为空");
             return null;
         }
 
         JSONArray resultJSONArray = getDeviceListResultEntityJSONObject.getJSONArray("result");
         if (resultJSONArray == null) {
-            log.info("请求返回值中无result字段");
-            return "";
+            log.error("请求返回值中无result字段");
+            return getDeviceListResultEntityJSONObject;
         }
         for (Object resultObject : resultJSONArray) {
             if (resultObject == null) {
-                log.info("result字段的值为空");
-                return null;
+                log.error("result字段的值为空");
+                return getDeviceListResultEntityJSONObject;
             }
             JSONObject resultJsonObject = (JSONObject) resultObject;
             if (resultJsonObject == null) {
-                log.info("result字段的值为空");
-                return null;
+                log.error("result字段的值为空");
+                return getDeviceListResultEntityJSONObject;
+            }
+
+            Integer alarmFlag = resultJsonObject.getIntValue("alarmFlag");
+            if(alarmFlag == null){
+                resultJsonObject.put("alarmFlag", 0);
+            }
+            String statusDetail = resultJsonObject.getString("statusDetail");
+            if(statusDetail == null){
+                resultJsonObject.put("statusDetail", alarmFlag.equals(0)?"正常":"异常");
             }
 
             JSONArray fieldsJSONArray = resultJsonObject.getJSONArray("fields");
             if (fieldsJSONArray == null) {
-                log.info("请求返回值中无fields字段");
-                return "";
+                log.error("请求返回值中无fields字段");
+                return getDeviceListResultEntityJSONObject;
             }
             for (Object fieldsObject : fieldsJSONArray) {
                 if (fieldsObject == null) {
-                    log.info("fileds字段的值为空");
-                    return null;
+                    log.error("fileds字段的值为空");
+                    return getDeviceListResultEntityJSONObject;
                 }
                 JSONObject fieldsObjectJsonObject = (JSONObject) fieldsObject;
                 if (fieldsObjectJsonObject == null) {
-                    log.info("fileds字段的值为空");
-                    return null;
+                    log.error("fileds字段的值为空");
+                    return getDeviceListResultEntityJSONObject;
                 }
                 String key = fieldsObjectJsonObject.getString("fieldCode");
                 if (key == null) {
-                    log.info("当前json中无fieldCode字段");
+                    log.error("当前json中无fieldCode字段");
                     continue;
                 }
                 String value = fieldsObjectJsonObject.getString("value");
@@ -147,7 +168,6 @@ public class TestXianHongAPI {
             }
         }
 
-        //System.out.println(getDeviceListResultEntityJSONObject.toString());
         return getDeviceListResultEntityJSONObject;
     }
 }

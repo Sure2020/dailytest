@@ -155,8 +155,10 @@ public class TestController {
     }
 
     @RequestMapping("/test/zhihuiqingcheng/xianhong")
-    public Object testZhihuiqingchengXianhong(){
-        Object object = TestXianHongAPI.main(null);
-        return object;
+    public Object testZhihuiqingchengXianhong(@RequestBody JSONObject jsonObject){
+        //String[] strings = {"","",""};
+
+        JSONObject resultJSONObject = TestXianHongAPI.main(jsonObject);
+        return resultJSONObject;
     }
 }
