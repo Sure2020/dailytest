@@ -32,6 +32,7 @@ public class TestMap {
         Map<String, String> testMap = new HashMap<String, String>();
         testMap.put("1","one");
         testMap.put("2","two");
+        testMap.put("1","one");//重复填入key相同的键值对，map的size不会增加
         System.out.println(testMap.size());
         for(String key: testMap.keySet()){
             System.out.println(key+ testMap.get(key));
