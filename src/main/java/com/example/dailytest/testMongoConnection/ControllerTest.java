@@ -243,6 +243,7 @@ public class ControllerTest {
 
         System.out.println("requstObj: " + requestObj.toString());
         String operation = requestObj.getString("operation");
+        Object resultObject = "success";
         switch (operation){
             case "insert":
                 System.out.println("insert");
@@ -251,51 +252,61 @@ public class ControllerTest {
                 DBForAggregationTest dbForAggregationTest = new DBForAggregationTest();
 
                 // 插入第一组数据
-                /*entityForAggregationTest.setDeviceId("a");
-                entityForAggregationTest.setDeviceTypeId("1");
+                entityForAggregationTest.setDeviceId("deviceId_a");
+                entityForAggregationTest.setDeviceTypeId("typeId_1");
+                entityForAggregationTest.setDeviceTypeName("typeName_1");
 
                 dbForAggregationTest.setId("doc1");
                 dbForAggregationTest.setAttributes(entityForAggregationTest);
-                dbDaoTest.aggregationInsertTest(dbForAggregationTest);*/
+                dbDaoTest.aggregationInsertTest(dbForAggregationTest);
 
                 // 插入第二组数据
-                /*entityForAggregationTest.setDeviceId("b");
-                entityForAggregationTest.setDeviceTypeId("2");
+                entityForAggregationTest.setDeviceId("deviceId_b");
+                entityForAggregationTest.setDeviceTypeId("typeId_2");
+                entityForAggregationTest.setDeviceTypeName("typeName_2");
 
                 dbForAggregationTest.setId("doc2");
                 dbForAggregationTest.setAttributes(entityForAggregationTest);
-                dbDaoTest.aggregationInsertTest(dbForAggregationTest);*/
+                dbDaoTest.aggregationInsertTest(dbForAggregationTest);
 
                 // 插入第三组数据
-                entityForAggregationTest.setDeviceId("c");
+                //entityForAggregationTest.setDeviceId("deviceId_c");
                 //entityForAggregationTest.setDeviceTypeId("2");
 
                 dbForAggregationTest.setId("doc3");
-                dbForAggregationTest.setAttributes(entityForAggregationTest);
+                dbForAggregationTest.setAttributes(null);
                 dbDaoTest.aggregationInsertTest(dbForAggregationTest);
 
                 break;
             case "aggregation":
                 // 试用Aggregation分组聚合操作
+                Criteria criteria = Criteria.where("attributes.deviceTypeId").exists(true);
+                //criteria.where("attributes.deviceTypeId").exists(true);
+                //criteria.where("_id").is("doc1");
                 Aggregation aggregationForCount = Aggregation.newAggregation(
-                        Aggregation.group("attributes.deviceTypeId").count().as("count"),
-                        Aggregation.project("count").and("deviceTypeId").previousOperation()
+                        Aggregation.match(criteria),
+                        Aggregation.group("attributes.deviceTypeId").count().as("count")
+                        .first("attributes.deviceTypeName").as("name")
+                        .first("attributes.deviceTypeId").as("id")
+                        //Aggregation.group("name").count().as("num_name")
+                        //Aggregation.project("count").and("deviceTypeId").previousOperation()
                 );
-                AggregationResults<MessageCount2> outputTypeCount = mongoTemplate.aggregate(aggregationForCount, DBForAggregationTest.class, MessageCount2.class);
+                AggregationResults<MessageCount2> outputTypeCount = mongoTemplate.aggregate(aggregationForCount, DBForAggregationTest.class,MessageCount2.class);
                 //return outputTypeCount.getMappedResults();
                 System.out.println("测试数据统计的方法！！！");
                 List<MessageCount2> messageCountList = outputTypeCount.getMappedResults();
-                System.out.println(outputTypeCount.getMappedResults());
+                //System.out.println(outputTypeCount.getMappedResults());
                 System.out.println(messageCountList);
                 int size = messageCountList.size();
                 System.out.println(size);
                 for(int i=0; i< size; i++){
                     MessageCount2 messageCount2 = messageCountList.get(i);
-                    if(messageCount2.getDeviceTypeId() == null){
+                    if(messageCount2.getId() == null){
                         size --;
                     }
                 }
                 System.out.println(size);
+                resultObject = messageCountList;
                 break;
             case "ne":
                 log.info("ne");
@@ -308,6 +319,6 @@ public class ControllerTest {
             default:
                 System.out.println("other");
         }
-        return "success";
+        return resultObject;
     }
 }

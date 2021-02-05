@@ -30,4 +30,5 @@ import lombok.Data;
 public class EntityForAggregationTest {
     String deviceId;
     String deviceTypeId;
+    String deviceTypeName;
 }

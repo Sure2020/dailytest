@@ -44,6 +44,8 @@ import java.util.List;
 public class TestController {
     @Autowired
     ConstantProperties constantProperties;
+    @Autowired
+    TestXianHongAPI testXianHongAPI;
     @Value("${testValue}")
     private String testValue;
 
@@ -158,7 +160,7 @@ public class TestController {
     public Object testZhihuiqingchengXianhong(@RequestBody JSONObject jsonObject){
         //String[] strings = {"","",""};
 
-        JSONObject resultJSONObject = TestXianHongAPI.main(jsonObject);
+        JSONObject resultJSONObject = testXianHongAPI.main(jsonObject);
         return resultJSONObject;
     }
 }

@@ -20,11 +20,18 @@ package com.example.dailytest.zhihuiqingcheng;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.dailytest.entity.InfoEntity;
 import com.example.dailytest.testmain.testSendSoapRequest.HeaderMap;
 import com.example.dailytest.testmain.testSendSoapRequest.HttpClientPoolUtils;
 import com.example.dailytest.testmain.testSendSoapRequest.HttpClientResult;
 import com.example.dailytest.utils.Constant;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +43,12 @@ import java.util.List;
  * @create: 2020-12-24
  **/
 @Slf4j
+@Component
 public class TestXianHongAPI {
+    @Autowired
+    MongoTemplate mongoTemplate;
     //public static Object main(String[] args) {
-    public static JSONObject main(JSONObject jsonObject) {
+    public JSONObject main(JSONObject jsonObject) {
         int equipTypeId = -1;
         int pageIndex = -1;
         int pageSize = -1;
@@ -130,21 +140,34 @@ public class TestXianHongAPI {
                 return getDeviceListResultEntityJSONObject;
             }
 
-            Integer alarmFlag = resultJsonObject.getIntValue("alarmFlag");
+            /*Integer alarmFlag = resultJsonObject.getIntValue("alarmFlag");
             if(alarmFlag == null){
                 resultJsonObject.put("alarmFlag", 0);
             }
             String statusDetail = resultJsonObject.getString("statusDetail");
             if(statusDetail == null){
                 resultJsonObject.put("statusDetail", alarmFlag.equals(0)?"正常":"异常");
+            }*/
+
+            String equipId = resultJsonObject.getString("equipId");
+            if(equipId == null){
+                log.error("请求返回值中无equipId字段");
+                continue;
             }
 
             JSONArray fieldsJSONArray = resultJsonObject.getJSONArray("fields");
             if (fieldsJSONArray == null) {
                 log.error("请求返回值中无fields字段");
-                return getDeviceListResultEntityJSONObject;
+                continue;
             }
-            for (Object fieldsObject : fieldsJSONArray) {
+
+            Query query = new Query();
+            Criteria c = Criteria.where("entityId").is(equipId)
+                    .and("modId").is("179b7aeedf204d1f862cd684e64064b9").and("attributes.deviceId").is(equipId);
+            Update update = new Update().set("attributes.fields", fieldsJSONArray);//.fields
+            mongoTemplate.upsert(query.addCriteria(c), update, InfoEntity.class);
+
+            /*for (Object fieldsObject : fieldsJSONArray) {
                 if (fieldsObject == null) {
                     log.error("fileds字段的值为空");
                     return getDeviceListResultEntityJSONObject;
@@ -165,7 +188,7 @@ public class TestXianHongAPI {
                     value = "空值";
                 }
                 resultJsonObject.put(key, value);
-            }
+            }*/
         }
 
         return getDeviceListResultEntityJSONObject;

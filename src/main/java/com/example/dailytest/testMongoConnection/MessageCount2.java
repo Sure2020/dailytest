@@ -28,7 +28,9 @@ import lombok.Data;
  **/
 @Data
 public class MessageCount2 {
-    String deviceTypeId;
+    //String id;
+    String id;
     //EntityForAggregationTest entityForAggregationTest;
-    Long count;
+    String name;
+    //Long count;
 }
