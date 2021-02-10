@@ -18,6 +18,7 @@
 
 package com.example.dailytest.testMongoConnection;
 
+import com.example.dailytest.huananligong.HuaNanLiGongEntity;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,10 @@ public class DBDaoTest {
 
     public void aggregationInsertTest(DBForAggregationTest dbForAggregationTest){
         mongoTemplate.insert(dbForAggregationTest);
+    }
+
+    public void huananligongInsert(HuaNanLiGongEntity huaNanLiGongEntity){
+        mongoTemplate.insert(huaNanLiGongEntity);
     }
 
     public void saveTest(DBEntityTest dbEntityTest) {

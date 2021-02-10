@@ -19,6 +19,7 @@
 package com.example.dailytest.testMongoConnection;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.dailytest.huananligong.HuaNanLiGongEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -314,6 +315,36 @@ public class ControllerTest {
                 log.info("query_ne: {}", query_ne);
                 //List<DBEntityTestIndex> resultList = mongoTemplate.find(query1, DBEntityTestIndex.class);
                 log.info("the result is: {}", mongoTemplate.find(query_ne, DBForAggregationTest.class).toString());
+                break;
+
+            default:
+                System.out.println("other");
+        }
+        return resultObject;
+    }
+
+    @PostMapping("/test/mongodb/huananligong")
+    public Object huananligongDBInsert(@RequestBody JSONObject requestObj){
+        System.out.println("requstObj: " + requestObj.toString());
+        String operation = requestObj.getString("operation");
+        Object resultObject = "success";
+        switch (operation){
+            case "insert":
+                System.out.println("insert");
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("class1", "8:30");
+                jsonObject.put("class2", "9:45");
+                HuaNanLiGongEntity huaNanLiGongEntity = new HuaNanLiGongEntity();
+                huaNanLiGongEntity.setId("a");
+                huaNanLiGongEntity.setObject(jsonObject);
+                dbDaoTest.huananligongInsert(huaNanLiGongEntity);
+
+                break;
+            case "aggregation":
+                //
+                break;
+            case "ne":
+                //
                 break;
 
             default:
