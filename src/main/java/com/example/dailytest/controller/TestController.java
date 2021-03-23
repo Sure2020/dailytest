@@ -26,6 +26,7 @@ import com.example.dailytest.testmain.TestAtValue;
 import com.example.dailytest.utils.Constant;
 import com.example.dailytest.utils.ConstantProperties;
 import com.example.dailytest.zhihuiqingcheng.TestXianHongAPI;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,7 @@ import java.util.List;
  **/
 
 @RestController
+@Slf4j
 public class TestController {
     @Autowired
     ConstantProperties constantProperties;
@@ -162,5 +164,11 @@ public class TestController {
 
         JSONObject resultJSONObject = testXianHongAPI.main(jsonObject);
         return resultJSONObject;
+    }
+
+    @PostMapping("/test/request/post")
+    public Object testRequestPost(@RequestBody JSONObject jsonObject){
+        log.info("request body: {}", jsonObject);
+        return jsonObject;
     }
 }
