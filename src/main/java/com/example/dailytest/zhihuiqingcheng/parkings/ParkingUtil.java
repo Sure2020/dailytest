@@ -4,6 +4,8 @@ import cn.hutool.http.HttpStatus;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
+import com.example.dailytest.testmain.testSendSoapRequest.HttpClientPoolUtils;
+import com.example.dailytest.testmain.testSendSoapRequest.HttpClientResult;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
@@ -29,7 +31,18 @@ public class ParkingUtil {
 
             jsonObject.put("sign",sign);
 
-            return sendRequest(url,jsonObject.toJSONString());
+            //改造
+            HttpClientResult getParkingListHttpClientResult = HttpClientPoolUtils.getPostResult(url, "application/json", jsonObject);
+            Object getParkingListHcrEntityObject = getParkingListHttpClientResult.getEntity();
+            if (getParkingListHcrEntityObject == null) {
+                log.error("请求返回为空");
+                return null;
+            }
+
+            ParkingResponse parkingResponse = JSON.parseObject(getParkingListHcrEntityObject.toString(),ParkingResponse.class);
+
+            //return sendRequest(url,jsonObject.toJSONString());
+            return parkingResponse;
         }
         catch (Exception e) {
             log.error(e.getMessage(),e);
