@@ -37,6 +37,9 @@ public class Constant {
     public static final String GETDEVICELISTMETHOD = ConstantProperties.getGetDeviceListMethod();
     public static final String HEADERSAUTHORIZATION = ConstantProperties.getHeadersAuthorization();
 
+    public static final String CHENGYUNAPIPARKINGS = ConstantProperties.getChengyunApiParkings();
+    public static final String CHENGYUNKEYPRIVATE = ConstantProperties.getChengyunKeyPrivate();
+
 //    @Value("${lishuiduijie.callbackBaseUrl}")
 //    public static String callbackBaseUrl;
     /*@Autowired

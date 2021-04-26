@@ -51,6 +51,14 @@ public class TestController {
     @Value("${testValue}")
     private String testValue;
 
+    //经过尝试，用以下这种方式从配置文件中取常量值取不到
+    /*public static final String KEY;
+    public static final String API;
+    static {
+        KEY = ConstantProperties.getChengyunKeyPrivate();
+        API = Constant.CHENGYUNAPIPARKINGS;
+    }*/
+
     @PostMapping("/test/post")
     public String testPost(@RequestBody DeviceDetail deviceDetail){
 
@@ -164,6 +172,16 @@ public class TestController {
 
         JSONObject resultJSONObject = testXianHongAPI.main(jsonObject);
         return resultJSONObject;
+    }
+
+    @PostMapping("/test/zhihuiqingcheng/chengyun")
+    public Object testZhihuiqingchengChengyun(){
+        String KEY = ConstantProperties.getChengyunKeyPrivate();
+        String API = Constant.CHENGYUNAPIPARKINGS;
+        log.info("KEY: {}", KEY);
+        log.info("API: {}", API);
+
+        return "testZhihuiqingchengChengyun";
     }
 
     @PostMapping("/test/request/post")

@@ -44,11 +44,10 @@ public class ConstantProperties {
     private static String getDeviceListPath;
     private static String getDeviceListMethod;
 
-
-
-
-
     private static String headersAuthorization;
+
+    private static String chengyunApiParkings;
+    private static String chengyunKeyPrivate;
 
     public static String getTestValue() {
         return testValue;
@@ -149,5 +148,23 @@ public class ConstantProperties {
     @Value("${zhihuiqingcheng.xianhong.headers.Authorization}")
     public void setHeadersAuthorization(String headersAuthorization) {
         ConstantProperties.headersAuthorization = headersAuthorization;
+    }
+
+    public static String getChengyunApiParkings() {
+        return chengyunApiParkings;
+    }
+
+    @Value("${zhihuiqingcheng.chengyun.api.parkings}")
+    public void setChengyunApiParkings(String chengyunApiParkings) {
+        ConstantProperties.chengyunApiParkings = chengyunApiParkings;
+    }
+
+    public static String getChengyunKeyPrivate() {
+        return chengyunKeyPrivate;
+    }
+
+    @Value("${zhihuiqingcheng.chengyun.key.private}")
+    public void setChengyunKeyPrivate(String chengyunKeyPrivate) {
+        ConstantProperties.chengyunKeyPrivate = chengyunKeyPrivate;
     }
 }
