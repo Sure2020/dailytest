@@ -184,6 +184,18 @@ public class TestController {
         return "testZhihuiqingchengChengyun";
     }
 
+    //测试从配置文件取到值为true的配置时，读到的是字符串“true”，而非布尔true
+    @GetMapping("/test/xianhong/autoDeleteZeroLocationValue")
+    public Object autoDeleteZeroLocationValue(){
+        String autoDeleteZeroLocationValue = Constant.AUTODELETEZEROLOCATIONVALUE;
+        log.info("autoDeleteZeroLocationValue: {}", autoDeleteZeroLocationValue);
+        if("true".equals(autoDeleteZeroLocationValue)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     @PostMapping("/test/request/post")
     public Object testRequestPost(@RequestBody JSONObject jsonObject){
         log.info("request body: {}", jsonObject);

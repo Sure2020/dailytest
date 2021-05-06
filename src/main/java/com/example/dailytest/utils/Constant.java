@@ -36,6 +36,7 @@ public class Constant {
     public static final String GETDEVICELISTPATH = ConstantProperties.getGetDeviceListPath();
     public static final String GETDEVICELISTMETHOD = ConstantProperties.getGetDeviceListMethod();
     public static final String HEADERSAUTHORIZATION = ConstantProperties.getHeadersAuthorization();
+    public static final String AUTODELETEZEROLOCATIONVALUE = ConstantProperties.getAutoDeleteZeroLocationValue();
 
     public static final String CHENGYUNAPIPARKINGS = ConstantProperties.getChengyunApiParkings();
     public static final String CHENGYUNKEYPRIVATE = ConstantProperties.getChengyunKeyPrivate();

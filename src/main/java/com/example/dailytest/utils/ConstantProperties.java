@@ -45,6 +45,7 @@ public class ConstantProperties {
     private static String getDeviceListMethod;
 
     private static String headersAuthorization;
+    private static String autoDeleteZeroLocationValue;
 
     private static String chengyunApiParkings;
     private static String chengyunKeyPrivate;
@@ -166,5 +167,14 @@ public class ConstantProperties {
     @Value("${zhihuiqingcheng.chengyun.key.private}")
     public void setChengyunKeyPrivate(String chengyunKeyPrivate) {
         ConstantProperties.chengyunKeyPrivate = chengyunKeyPrivate;
+    }
+
+    public static String getAutoDeleteZeroLocationValue() {
+        return autoDeleteZeroLocationValue;
+    }
+
+    @Value("${zhihuiqingcheng.xianhong.autoDeleteZeroLocationValue}")
+    public void setAutoDeleteZeroLocationValue(String autoDeleteZeroLocationValue) {
+        ConstantProperties.autoDeleteZeroLocationValue = autoDeleteZeroLocationValue;
     }
 }
