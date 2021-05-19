@@ -56,7 +56,9 @@ public class ControllerTest {
 
         String testID = requestObj.getString("testID");
         if (testID == null) {
-            testID = "testid";
+            //testID = "testid";
+            System.out.println("testId can not be null");
+            return "testId can not be null";
         }
         String testParam1 = requestObj.getString("testParam1");
         String testParam2 = requestObj.getString("testParam2");
@@ -229,7 +231,7 @@ public class ControllerTest {
                 }
 
                 //the dbEntityTestIndex is : DBEntityTestIndex(param1=a, param2=a)
-                log.info("the dbEntityTestIndex is : {}", dbEntityTestIndex.toString());
+                //log.info("the dbEntityTestIndex is : {}", dbEntityTestIndex.toString());
 
                 break;
             default:
@@ -351,5 +353,19 @@ public class ControllerTest {
                 System.out.println("other");
         }
         return resultObject;
+    }
+
+    @PostMapping("test/mongodb/orOperator")
+    public Object mongodbOrOperater(@RequestBody JSONObject requestObj){
+        Criteria criteria1 = new Criteria();
+        criteria1.orOperator(Criteria.where("testParam1").is(""),Criteria.where("testParam1").is("0.0"),Criteria.where("testParam1").is(null)
+        ,Criteria.where("testParam2").is(""),Criteria.where("testParam2").is("0.0"),Criteria.where("testParam2").is(null));
+        Query query1 = new Query();//.addCriteria(Criteria.where("testID").is("a")/*.and("dbEntityTestIndexList.param1").is("a")*/);
+        query1.addCriteria(criteria1);
+        log.info("query1: {}", query1);
+        //List<DBEntityTestIndex> resultList = mongoTemplate.find(query1, DBEntityTestIndex.class);
+        log.info("the result is: {}", mongoTemplate.find(query1, DBEntityTest.class).toString());
+
+        return "testing";
     }
 }
