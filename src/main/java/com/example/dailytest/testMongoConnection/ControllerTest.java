@@ -357,7 +357,7 @@ public class ControllerTest {
 
     @PostMapping("test/mongodb/orOperator")
     public Object mongodbOrOperater(@RequestBody JSONObject requestObj){
-        Criteria criteria1 = new Criteria();
+        Criteria criteria1 = Criteria.where("testID").is("e");
         criteria1.orOperator(Criteria.where("testParam1").is(""),Criteria.where("testParam1").is("0.0"),Criteria.where("testParam1").is(null)
         ,Criteria.where("testParam2").is(""),Criteria.where("testParam2").is("0.0"),Criteria.where("testParam2").is(null));
         Query query1 = new Query();//.addCriteria(Criteria.where("testID").is("a")/*.and("dbEntityTestIndexList.param1").is("a")*/);
