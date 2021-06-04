@@ -1,8 +1,185 @@
 package com.example.dailytest.testmain;
 
+
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.BeanUtils;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class TestLambda {
     final  static String salutation = "Hello!";
-    public static void main(String args[]){
+
+    public static void main(String[] args) {
+
+        List<Todo> list = new ArrayList<>();
+        list.add(new Todo(1,1,"hh","ss",LocalDateTime.now()));
+        list.add(new Todo(2,2,"hh","ss",LocalDateTime.now()));
+        list.add(new Todo(3,3,"hh","ss",LocalDateTime.now()));
+
+        List<TodoDto> todoDtos = new ArrayList<>();
+        todoDtos = list.stream().map(
+                todo ->new TodoDto(todo.getUserId(),todo.getTitle(),todo.getContent())
+        ).collect(Collectors.toList());
+        //  或者
+        todoDtos = list.stream().map(
+                todo->{
+                    TodoDto to = new TodoDto();
+                    BeanUtils.copyProperties(todo,to);
+                    return to;
+                }
+        ).collect(Collectors.toList());
+
+        list.stream().forEach(item-> System.out.println(item));
+        todoDtos.stream().forEach(m-> System.out.println(m));
+
+        System.out.println("end");
+
+        //##############################   精简JSONObjectlist
+        JSONObject obj1 = new JSONObject();
+        obj1.put("id", "a");
+        obj1.put("name", "a");
+        JSONObject obj2 = new JSONObject();
+        obj2.put("id", "b");
+        obj2.put("name", "b");
+
+        List<JSONObject> sourceList = new ArrayList<>();
+        sourceList.add(obj1);
+        sourceList.add(obj2);
+        sourceList.stream().forEach(obj -> System.out.println(obj));
+
+        List<Object> targetList = new ArrayList<>();
+        //targetList =  sourceList.stream().map(objItem -> new JSONObject().put("id", objItem.getString("id"))).collect(Collectors.toList());
+        targetList =  sourceList.stream().map(sourceObj -> {
+            JSONObject targetObj = new JSONObject();
+            targetObj.put("id", sourceObj.getString("id"));
+            return targetObj;
+        }).collect(Collectors.toList());
+        targetList.stream().forEach(obj -> System.out.println(JSONObject.toJSON(obj)));
+    }
+
+
+    public static class TodoDto {
+        private int userId;
+        private String title;
+        private String content;
+
+        @Override
+        public String toString() {
+            return "TodoDto{" +
+                    "userId=" + userId +
+                    ", title='" + title + '\'' +
+                    ", content='" + content + '\'' +
+                    '}';
+        }
+
+        public TodoDto() {
+        }
+
+        public TodoDto(int userId, String title, String content) {
+            this.userId = userId;
+            this.title = title;
+            this.content = content;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+    }
+
+    public static class Todo {
+        private int id;
+        private int userId;
+        private String title;
+        private String content;
+        private LocalDateTime createTime;
+
+        @Override
+        public String toString() {
+            return "Todo{" +
+                    "id=" + id +
+                    ", userId=" + userId +
+                    ", title='" + title + '\'' +
+                    ", content='" + content + '\'' +
+                    ", createTime=" + createTime +
+                    '}';
+        }
+
+        public Todo() {
+        }
+
+        public Todo(int id, int userId, String title, String content, LocalDateTime createTime) {
+            this.id = id;
+            this.userId = userId;
+            this.title = title;
+            this.content = content;
+            this.createTime = createTime;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public LocalDateTime getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(LocalDateTime createTime) {
+            this.createTime = createTime;
+        }
+    }
+
+    public static void main_backup(String args[]){
         TestLambda tester = new TestLambda();
         final String salutation2 = "world!";
 
