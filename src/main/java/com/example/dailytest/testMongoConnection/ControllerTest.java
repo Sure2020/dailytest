@@ -26,6 +26,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -367,5 +368,33 @@ public class ControllerTest {
         log.info("the result is: {}", mongoTemplate.find(query1, DBEntityTest.class).toString());
 
         return "testing";
+    }
+    @PostMapping("/test/mongodb/update_inc")
+    public Object updateAndInc(){
+
+        Criteria criteria = new Criteria().where("year").is(2021).and("month").is(6);
+        //criteria.where("year").is(2021);//.and("month").is(6);
+        Query query = new Query(criteria);
+        //query.addCriteria(criteria);
+        Update update = new Update().inc("count",1);
+        //update.inc("count", 1);
+        //update.set("count",100);
+        mongoTemplate.upsert(query, update, APICallCount.class);
+
+
+        //mongoTemplate.upsert(new Query(Criteria.where("year").is(2021)), new Update().set("count", 100), APICallCount.class);
+
+        /*为什么把query criteria分开写 这样upsert就不行
+        Criteria c = new Criteria();
+        c.where("year").is(2023).and("month").is(7);
+        Query q = new Query();
+        q.addCriteria(c);
+        Update u = new Update().set("count",200);
+        u.set("count",100);
+        mongoTemplate.upsert(q, u, APICallCount.class);
+        */
+
+
+        return "update and inc";
     }
 }
