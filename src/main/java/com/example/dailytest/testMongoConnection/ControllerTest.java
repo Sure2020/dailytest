@@ -22,18 +22,27 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.dailytest.huananligong.HuaNanLiGongEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
 
 /**
  * @program: com.example.dailytest.testMongoConnection
@@ -52,7 +61,7 @@ public class ControllerTest {
     MongoTemplate mongoTemplate;
 
     @PostMapping("/test/mongodb")
-    public  Object mongodbTest(@RequestBody JSONObject requestObj){
+    public Object mongodbTest(@RequestBody JSONObject requestObj) {
         System.out.println("requstObj: " + requestObj.toString());
 
         String testID = requestObj.getString("testID");
@@ -73,7 +82,7 @@ public class ControllerTest {
         dbEntityTest.setTestParam3(testParam3);
 
         switch (operation) {
-            case "insert" :
+            case "insert":
                 System.out.println("insert");
                 dbDaoTest.insertTest(dbEntityTest);
                 break;
@@ -87,7 +96,7 @@ public class ControllerTest {
                 break;
             case "read":
                 System.out.println("read");
-                dbServiceTest.readDB(0,10);
+                dbServiceTest.readDB(0, 10);
                 break;
             case "remove":
                 System.out.println("remove");
@@ -132,7 +141,7 @@ public class ControllerTest {
                 log.info("the result is: {}", mongoTemplate.find(query3, DBTestModel.class).toString());
 
                 // 试用 where in 条件查询
-                Query query4 = new Query().addCriteria(Criteria.where("testParam1").in(Arrays.asList("testParam1","testParam111")));
+                Query query4 = new Query().addCriteria(Criteria.where("testParam1").in(Arrays.asList("testParam1", "testParam111")));
                 log.info("query4: {}", query4);
                 log.info("the result is: {}", mongoTemplate.find(query4, DBEntityTest.class).toString());
 
@@ -145,8 +154,8 @@ public class ControllerTest {
 
                 // 试用Aggregation分组聚合操作
                 Aggregation aggregationForCount = Aggregation.newAggregation(
-                        Aggregation.group("testParam1").count().as("count"),
-                        Aggregation.project("count").and("testParam1").previousOperation()
+                        group("testParam1").count().as("count"),
+                        project("count").and("testParam1").previousOperation()
                 );
                 AggregationResults<MessageCount> outputTypeCount = mongoTemplate.aggregate(aggregationForCount, DBEntityTest.class, MessageCount.class);
                 //return outputTypeCount.getMappedResults();
@@ -196,7 +205,7 @@ public class ControllerTest {
                 MatchOperation match = Aggregation.match(Criteria.where("_id").is("a"));
                 commonOperations.add(match);
                 //2. 指定投影，返回哪些字段
-                ProjectionOperation project = Aggregation.project("dbEntityTestIndexList");
+                ProjectionOperation project = project("dbEntityTestIndexList");
                 commonOperations.add(project);
                 //3. 拆分内嵌文档
                 UnwindOperation unwind = Aggregation.unwind("dbEntityTestIndexList");
@@ -227,7 +236,7 @@ public class ControllerTest {
                     log.info("size: {}", resultObj.size());
                     dbEntityTestIndex = JSONObject
                             .parseObject(resultObj.getJSONObject("dbEntityTestIndexList").toJSONString(), DBEntityTestIndex.class);
-                }else{
+                } else {
                     log.error("resultObj is null");
                 }
 
@@ -243,12 +252,12 @@ public class ControllerTest {
     }
 
     @PostMapping("test/mongodb/aggregation")
-    public Object mongodbAggregationTest(@RequestBody JSONObject requestObj){
+    public Object mongodbAggregationTest(@RequestBody JSONObject requestObj) {
 
         System.out.println("requstObj: " + requestObj.toString());
         String operation = requestObj.getString("operation");
         Object resultObject = "success";
-        switch (operation){
+        switch (operation) {
             case "insert":
                 System.out.println("insert");
 
@@ -289,13 +298,13 @@ public class ControllerTest {
                 //criteria.where("_id").is("doc1");
                 Aggregation aggregationForCount = Aggregation.newAggregation(
                         Aggregation.match(criteria),
-                        Aggregation.group("attributes.deviceTypeId").count().as("count")
-                        .first("attributes.deviceTypeName").as("name")
-                        .first("attributes.deviceTypeId").as("id")
+                        group("attributes.deviceTypeId").count().as("count")
+                                .first("attributes.deviceTypeName").as("name")
+                                .first("attributes.deviceTypeId").as("id")
                         //Aggregation.group("name").count().as("num_name")
                         //Aggregation.project("count").and("deviceTypeId").previousOperation()
                 );
-                AggregationResults<MessageCount2> outputTypeCount = mongoTemplate.aggregate(aggregationForCount, DBForAggregationTest.class,MessageCount2.class);
+                AggregationResults<MessageCount2> outputTypeCount = mongoTemplate.aggregate(aggregationForCount, DBForAggregationTest.class, MessageCount2.class);
                 //return outputTypeCount.getMappedResults();
                 System.out.println("测试数据统计的方法！！！");
                 List<MessageCount2> messageCountList = outputTypeCount.getMappedResults();
@@ -303,10 +312,10 @@ public class ControllerTest {
                 System.out.println(messageCountList);
                 int size = messageCountList.size();
                 System.out.println(size);
-                for(int i=0; i< size; i++){
+                for (int i = 0; i < size; i++) {
                     MessageCount2 messageCount2 = messageCountList.get(i);
-                    if(messageCount2.getId() == null){
-                        size --;
+                    if (messageCount2.getId() == null) {
+                        size--;
                     }
                 }
                 System.out.println(size);
@@ -327,11 +336,11 @@ public class ControllerTest {
     }
 
     @PostMapping("/test/mongodb/huananligong")
-    public Object huananligongDBInsert(@RequestBody JSONObject requestObj){
+    public Object huananligongDBInsert(@RequestBody JSONObject requestObj) {
         System.out.println("requstObj: " + requestObj.toString());
         String operation = requestObj.getString("operation");
         Object resultObject = "success";
-        switch (operation){
+        switch (operation) {
             case "insert":
                 System.out.println("insert");
                 JSONObject jsonObject = new JSONObject();
@@ -357,10 +366,10 @@ public class ControllerTest {
     }
 
     @PostMapping("test/mongodb/orOperator")
-    public Object mongodbOrOperater(@RequestBody JSONObject requestObj){
+    public Object mongodbOrOperater(@RequestBody JSONObject requestObj) {
         Criteria criteria1 = Criteria.where("testID").is("e");
-        criteria1.orOperator(Criteria.where("testParam1").is(""),Criteria.where("testParam1").is("0.0"),Criteria.where("testParam1").is(null)
-        ,Criteria.where("testParam2").is(""),Criteria.where("testParam2").is("0.0"),Criteria.where("testParam2").is(null));
+        criteria1.orOperator(Criteria.where("testParam1").is(""), Criteria.where("testParam1").is("0.0"), Criteria.where("testParam1").is(null)
+                , Criteria.where("testParam2").is(""), Criteria.where("testParam2").is("0.0"), Criteria.where("testParam2").is(null));
         Query query1 = new Query();//.addCriteria(Criteria.where("testID").is("a")/*.and("dbEntityTestIndexList.param1").is("a")*/);
         query1.addCriteria(criteria1);
         log.info("query1: {}", query1);
@@ -369,14 +378,15 @@ public class ControllerTest {
 
         return "testing";
     }
-    @PostMapping("/test/mongodb/update_inc")
-    public Object updateAndInc(){
+
+    @GetMapping("/test/mongodb/update_inc")
+    public Object updateAndInc() {
 
         Criteria criteria = new Criteria().where("year").is(2021).and("month").is(6);
         //criteria.where("year").is(2021);//.and("month").is(6);
         Query query = new Query(criteria);
         //query.addCriteria(criteria);
-        Update update = new Update().inc("count",1);
+        Update update = new Update().inc("count", 1);
         //update.inc("count", 1);
         //update.set("count",100);
         mongoTemplate.upsert(query, update, APICallCount.class);
@@ -393,8 +403,75 @@ public class ControllerTest {
         u.set("count",100);
         mongoTemplate.upsert(q, u, APICallCount.class);
         */
-
-
         return "update and inc";
+    }
+
+    @GetMapping("/test/mongodb/orderby")
+    public Object testOrderby() {
+        Query query = new Query();
+        query.with(Sort.by(new Sort.Order(Sort.Direction.DESC, "year")));
+        query.with(Sort.by(new Sort.Order(Sort.Direction.DESC, "month")));
+        query.limit(12);
+        List<APICallCount> list = mongoTemplate.find(query, APICallCount.class);
+        list.forEach(obj -> {
+            System.out.println(obj.toString());
+        });
+        for (int i = list.size() - 1; i >= 0; i--) {
+            APICallCount apiCallCount = list.get(i);
+            System.out.print(apiCallCount.getYear());
+            System.out.println(apiCallCount.getMonth());
+        }
+        //query.with(Sort.by(new Order(Direction.ASC, "name")));
+        return "testOrderby";
+    }
+
+    @GetMapping("/test/mongodb/sum")
+    public Object getSum(){
+        // 试用Aggregation分组聚合操作
+        Aggregation aggregation = Aggregation.newAggregation(
+                group("year").sum("count").as("totalCalls")
+                /*project("totalCalls")*/
+        );
+        AggregationResults<JSONObject> outputTypeCount = mongoTemplate.aggregate(aggregation, APICallCount.class, JSONObject.class);
+        //return outputTypeCount.getMappedResults();
+        System.out.println("测试数据统计的方法！！！");
+        List<JSONObject> messageCountList = outputTypeCount.getMappedResults();
+        System.out.println(messageCountList);
+        int totalCalls = 0;
+        for (JSONObject object: messageCountList  ) {
+            System.out.println(object);
+            totalCalls += object.getIntValue("totalCalls");
+
+        }
+        return totalCalls;
+
+        /*
+        db.importedDataItems.aggregate({
+    $match: {
+        mobile: "1234567890"
+    }
+}, {
+    $group: {
+        _id: 'mobile',
+        calls: { $sum: '$calls' }
+    }
+ })
+
+ 参考：https://stackoverflow.com/questions/33390407/mongotemplate-sum-values-of-keys-for-documents-matching-a-certain-criterion
+         */
+
+    }
+
+    @GetMapping("/test/mongodb/exists")
+    public Object testExists () {
+        Query query = new Query(new Criteria().where("year").exists(true).ne("2020").ne(2020));
+        List<APICallCount> list = mongoTemplate.find(query, APICallCount.class);
+        for (int i = list.size() - 1; i >= 0; i--) {
+            APICallCount apiCallCount = list.get(i);
+            System.out.print(apiCallCount.getYear());
+            System.out.println(apiCallCount.getMonth());
+        }
+
+        return list;
     }
 }

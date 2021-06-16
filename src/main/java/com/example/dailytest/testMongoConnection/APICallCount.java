@@ -19,6 +19,7 @@
 package com.example.dailytest.testMongoConnection;
 
 import lombok.Data;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -29,7 +30,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
  **/
 @Data
 @Document("apiCallCount")
+//name：索引名称 def：字段(1正序 -1倒序) unique：是否唯一索引
+@CompoundIndex(name = "apiCallCount_index", def = "{year:1, month:1}", unique = true)
 public class APICallCount {
+
     int year;
     int month;
     int count;
