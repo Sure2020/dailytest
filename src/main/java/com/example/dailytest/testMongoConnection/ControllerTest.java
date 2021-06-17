@@ -469,7 +469,11 @@ public class ControllerTest {
 
     @GetMapping("/test/mongodb/exists")
     public Object testExists () {
-        Query query = new Query(new Criteria().where("year").exists(true).ne("2020").ne(2020));
+        Query query = new Query();
+        query.addCriteria(Criteria.where("year").exists(true).ne("2020"));
+        log.info(query.toString());
+        //query查询条件，多个ne，只会生效最后面那一个
+        //Query query = new Query(new Criteria().where("year").exists(true).ne("2020").ne(2020));
         List<APICallCount> list = mongoTemplate.find(query, APICallCount.class);
         for (int i = list.size() - 1; i >= 0; i--) {
             APICallCount apiCallCount = list.get(i);
