@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.print.Doc;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -425,8 +426,12 @@ public class ControllerTest {
         return "testOrderby";
     }
 
-    @GetMapping("/test/mongodb/sum")
-    public Object getSum(){
+    @GetMapping(value = "/test/mongodb/sum"/*,produces="application/x-javascript; charset=gb2312"*/)
+    public Object getSum(HttpServletResponse response){
+        response.addHeader("Baeldung-Example-Header", "Value-HttpServletResponse");
+        //事实证明这样设置Content-Type也不行，不会生效，只能用在@RequestMapping中指定produces来实现
+        //response.setHeader("Content-Type", "application/x-javascript; charset=gb2312");
+        response.addHeader("Content-Type", "application/x-javascript; charset=gb2312");
         // 试用Aggregation分组聚合操作
         Aggregation aggregation = Aggregation.newAggregation(
                 group("year").sum("count").as("totalCalls")
@@ -443,7 +448,7 @@ public class ControllerTest {
             totalCalls += object.getIntValue("totalCalls");
 
         }
-        return totalCalls;
+        return "总个数：" + totalCalls;
 
         /*
         db.importedDataItems.aggregate({
