@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
@@ -482,5 +483,37 @@ public class ControllerTest {
         }
 
         return list;
+    }
+
+    @PostMapping ("/test/mongodb/regex")
+    public Object testRegex(@RequestBody JSONObject requestObj){
+        String regexStr = requestObj.getString("regex");
+        System.out.println("regex: " + regexStr);
+        String regex = strToCom(regexStr);
+        // 试用regex模糊查询
+        //Query query5 = new Query().addCriteria(Criteria.where("Id").is("a.b.c"));
+        Pattern pattern = Pattern.compile(regexStr, Pattern.CASE_INSENSITIVE);
+        Query query5 = new Query().addCriteria(Criteria.where("testParam1").regex(regex));
+        log.info("query5: {}", query5);
+        log.info("query5: {}", query5.toString());
+        String result = mongoTemplate.find(query5, DBEntityTest.class).toString();
+        log.info("the result is: {}", result);
+        return result;
+    }
+
+    /**
+     * 模糊查询特殊字符替换
+     */
+    public static String strToCom(String str) {
+        String newCloudName = str.replace("\\", "\\\\")
+                .replace("*", "\\*").replace("+", "\\+")
+                .replace("|", "\\|")
+                .replace("{", "\\{").replace("}", "\\}")
+                .replace("(", "\\(").replace(")", "\\)")
+                .replace("^", "\\^").replace("$", "\\$")
+                .replace("[", "\\[").replace("]", "\\]")
+                .replace("?", "\\?").replace(",", "\\,")
+                .replace(".", "\\.").replace("&", "\\&");
+        return newCloudName;
     }
 }
