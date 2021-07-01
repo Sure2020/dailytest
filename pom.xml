@@ -296,6 +296,15 @@
 		</dependency>
 		<!--青城项目城云停车接口依赖-->
 
+		<!--华科短信平台对接依赖-->
+		<dependency>
+			<groupId>org.codehaus.xfire</groupId>
+			<artifactId>xfire-core</artifactId>
+			<version>1.2.6</version>
+		</dependency>
+		<!--华科短信平台对接依赖-->
+
+
 	</dependencies>
 
 	<build>
