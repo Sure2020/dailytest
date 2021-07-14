@@ -57,6 +57,7 @@ public class TestStopWatch {
         System.out.println(sw1.prettyPrint());
         System.out.println(sw2.prettyPrint());
         System.out.println("total "+sw1.getTotalTimeMillis());
+        System.out.println("total "+sw1.getTotalTimeSeconds());
         System.out.println("total "+sw2.getTotalTimeMillis());
         System.out.println("total "+sw_all.getTotalTimeMillis());
 

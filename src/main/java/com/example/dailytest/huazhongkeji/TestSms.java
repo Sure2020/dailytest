@@ -51,7 +51,9 @@ public class TestSms extends TestCase{
         try {
             ApplicationContext appContext = new ClassPathXmlApplicationContext(new String[] {});
             //webservice地址由正式环境决定
-            org.springframework.core.io.Resource resource = appContext.getResource("url:http://ucs.hust.edu.cn/service/SmsService?wsdl");
+            //org.springframework.core.io.Resource resource = appContext.getResource("url:http://ucs.hust.edu.cn/service/SmsService?wsdl");
+            //org.springframework.core.io.Resource resource = appContext.getResource("url:http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl");
+            org.springframework.core.io.Resource resource = appContext.getResource("url:http://192.168.56.74:2345/services/ws/api?wsdl");
             //获取时间
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -106,10 +108,16 @@ public class TestSms extends TestCase{
             //调用
             Client client = new Client(resource.getInputStream(), null);
             //输出结果 boolean型，true代表推送成功，false为失败
-            Object[] result = client.invoke("saveSmsInfo", new Object[]{json});
+            //Object[] result = client.invoke("saveSmsInfo", new Object[]{json});
+            //Object[] result = client.invoke("getSupportCity", new Object[]{"浙江"});
+            //helloMessageServer
+            Object[] result = client.invoke("emrService", new Object[]{"abc"});
 
-            System.out.println(result[0]);
+            System.out.println("result[0]:" + result[0]);
 
+            for(int i = 0; i < result.length; i++){
+                System.out.println("resut[" + i + "]: " + result[i]);
+            }
             client.close();
         } catch (Exception e) {
             e.printStackTrace();
