@@ -31,7 +31,7 @@ import java.util.List;
  * @create: 2020-09-02
  **/
 public class TestOracleUseConnection {
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         System.out.println("TestOracleUseConnection");
         Connection connection = null;
         try {
@@ -66,6 +66,42 @@ public class TestOracleUseConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }*/
+    public static void main(String[] args){
+        Connection conn = null;
+        String url = "jdbc:oracle:thin:@//192.168.56.45:1522/orcl2";
+        String username = "system";
+        String password = "iotadmin_2021";
+        String tableName = "test_oracle";
+        try {
+            System.out.println();
+            System.out.println("begin to connect oracle");
+            System.out.println("url:" + url + "--" + username + ":" + password);
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            conn = DriverManager.getConnection(url, username, password);
+            conn.prepareStatement("select count(1) from " + tableName).executeQuery();
+            System.out.println(conn);
+            System.out.println("数据库连接成功");
+        } catch (Exception e) {
+            System.out.println("数据库连接异常");
+            e.printStackTrace();
+            String message = e.toString();
+            if (message.contains("ORA-01017")) {
+                System.out.println("数据库连接失败，请检查用户名或密码！");
+            } else if (message.contains("SQLRecoverableException") && message.contains("The Network Adapter could not establish the connection")) {
+                System.out.println("数据库连接失败，请检查IP和PORT是否输入正确！");
+            } else {
+                System.out.println("数据库连接失败，配置错误请检查!");
+            }
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("conn 关闭异常");
+            }
         }
     }
 }
