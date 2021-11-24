@@ -319,6 +319,21 @@
 			<version>1.2.6</version>
 		</dependency>-->
 		<!--华科短信平台对接依赖-->
+		<!--jwt依赖-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+<!--		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+		</dependency>-->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+		<!--jwt依赖-->
 
 	</dependencies>
 
