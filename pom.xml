@@ -320,10 +320,11 @@
 		</dependency>-->
 		<!--华科短信平台对接依赖-->
 		<!--jwt依赖-->
-		<dependency>
+		<!--相关代码已从项目中excluded,需要时再将该依赖放开，并重新引入被排除的文件夹testJWT-->
+<!--		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		</dependency>-->
 <!--		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
@@ -334,6 +335,10 @@
 			<version>0.9.1</version>
 		</dependency>
 		<!--jwt依赖-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 
 	</dependencies>
 
