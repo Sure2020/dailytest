@@ -43,5 +43,10 @@ public class TestStringToNumber {
         String p=decimalFormat.format(price); //format 返回的是字符串
         System.out.println(Float.valueOf(p));
         System.out.println(Float.valueOf(decimalFormat.format(f2)));
+        System.out.println("###");
+        System.out.println(231d/2500d);
+        String rate = decimalFormat.format(2331d/2500d);
+        System.out.println("rate: " + Float.valueOf(rate));
+        System.out.println(Float.valueOf(rate) > 1);
     }
 }
