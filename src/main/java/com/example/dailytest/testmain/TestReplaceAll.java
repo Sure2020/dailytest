@@ -37,7 +37,11 @@ public class TestReplaceAll {
 
         // http://192.168.110.250/home/
         String url = "http://192.168.110.222:8086/log/a/b/c/directory?hostname";
-        String urlAfterReplace = url.replace("//.*/", "//vm222:8888/");
+        String urlAfterReplace = url.replace("\\d+\\.\\d+\\.\\d+\\.\\d+", "127.0.0.1");
         System.out.println(urlAfterReplace);
+
+        String ipRegex = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
+        String uri2 = url.replaceFirst(ipRegex, "vm222");
+        System.out.println(uri2);
     }
 }
