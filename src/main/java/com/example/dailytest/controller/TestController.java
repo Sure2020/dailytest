@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,7 +144,13 @@ public class TestController {
     }
 
     @GetMapping("/test/locker")
-    public JSONObject locker () {
+    public JSONObject locker (HttpServletRequest httpServletRequest) {
+        System.out.println(httpServletRequest.getLocalPort()); //2335
+        System.out.println(httpServletRequest.getRemotePort()); //6929
+        System.out.println(httpServletRequest.getServerPort()); //2335
+        System.out.println(httpServletRequest.getRequestURL().toString()); //http://localhost:2335/test/locker
+        System.out.println(httpServletRequest.getQueryString()); //a=a&b=b
+
         JSONObject resultObj = new JSONObject();
         JSONObject lockerObj1 = new JSONObject();
         JSONObject lockerObj2 = new JSONObject();
