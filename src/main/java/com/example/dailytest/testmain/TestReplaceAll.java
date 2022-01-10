@@ -34,5 +34,10 @@ public class TestReplaceAll {
         String ip = "0.0.0.0";
         String replacement = "http://"+ ip;
         System.out.println(str.replaceFirst(regex,replacement));
+
+        // http://192.168.110.250/home/
+        String url = "http://192.168.110.222:8086/log/a/b/c/directory?hostname";
+        String urlAfterReplace = url.replace("//.*/", "//vm222:8888/");
+        System.out.println(urlAfterReplace);
     }
 }
