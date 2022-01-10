@@ -18,8 +18,7 @@
 
 package com.example.dailytest.testKongOauth2;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.example.dailytest.shenzhenalarm.RestTemplateConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.*;

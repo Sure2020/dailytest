@@ -42,8 +42,9 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 
-@Configuration
-public class RestTemplateConfig {
+// 这个类，为了避免与已有的类重名，故注释掉
+//@Configuration
+public class RestTemplateConfigForOauth {
 
     @Bean
     public RestTemplate restTemplate(ClientHttpRequestFactory factory){
