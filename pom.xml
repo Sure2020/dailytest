@@ -339,11 +339,37 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		<!--引入第三方jar-用于获取文件的编码格式-->
+		<dependency>
+			<groupId>com.h3c.thirdjar</groupId>
+			<artifactId>antlr</artifactId>
+			<version>2.7.6</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/antlr-2.7.6.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.h3c.thirdjar</groupId>
+			<artifactId>cpdetector</artifactId>
+			<version>1.0.10</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/cpdetector-1.0.10.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.h3c.thirdjar</groupId>
+			<artifactId>jchardet</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/jchardet-1.0.jar</systemPath>
+		</dependency>
+		<!--引入第三方jar-用于获取文件的编码格式-->
+
+
 
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!--加上该插件，打包后lib中第三方jar包的路径即在BOOT-INF\lib目录下-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
