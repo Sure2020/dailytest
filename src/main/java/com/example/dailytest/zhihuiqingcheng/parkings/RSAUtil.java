@@ -5,10 +5,10 @@
 
 package com.example.dailytest.zhihuiqingcheng.parkings;
 
-//import cn.hutool.core.codec.Base64;
+import cn.hutool.core.codec.Base64;
 
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+//import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
