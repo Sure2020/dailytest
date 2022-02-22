@@ -23,6 +23,9 @@ import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.crypto.symmetric.DES;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * @program: com.example.dailytest.testmain
  * https://www.daimajiaoliu.com/daima/479c03b59100400
@@ -55,17 +58,20 @@ public class TestAESandDES {
         System.out.println(decryptStr);
 */
 
-        String content = "/h3coasis/local_volumes/iotdevops/upload/platform/test_p";
+        String content = "platform/test_p";
 
 //随机生成密钥
         byte[] key = SecureUtil.generateKey(SymmetricAlgorithm.DES.getValue()).getEncoded();
+        System.out.println("key: " + Arrays.toString(key));
 
 //构建
         DES des = SecureUtil.des(key);
 
 //加密解密
         byte[] encrypt = des.encrypt(content);
+        System.out.println(Arrays.toString(encrypt));
         byte[] decrypt = des.decrypt(encrypt);
+        System.out.println(Arrays.toString(decrypt));
 
 //加密为16进制，解密为原字符串
         String encryptHex = des.encryptHex(content);
