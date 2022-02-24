@@ -18,8 +18,6 @@
 
 package com.example.dailytest.testmain;
 
-import io.swagger.annotations.ApiModelProperty;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,18 +38,18 @@ import java.util.List;
  */
 public class TestGetFileName {
     public static void main(String[] args) {
-        String path = "E:\\temp";
+        String path = "E:\\temp\\devops";
         //String path = "E:\\workspace\\api-doc\\api\\iot-base-ops";
         //String [] fileName = getFileName("E:\\workspace\\api-doc\\api\\iot-base-ops");
         String[] fileName = getFileName(path);
         for (String name : fileName) {
-            //System.out.println(name);
+            System.out.println(name);
         }
-        //System.out.println("--------------------------------");
+        System.out.println("--------------------------------");
         ArrayList<String> listFileName = new ArrayList<String>();
         getAllFileName(path, listFileName);
         for (String name : listFileName) {
-            //System.out.println(name);
+            System.out.println(name);
         }
         //System.out.println("--------------------------------");
 
@@ -64,6 +62,7 @@ public class TestGetFileName {
     public static String[] getFileName(String path) {
         File file = new File(path);
         String[] fileName = file.list();
+        Arrays.sort(fileName);
         return fileName;
     }
 
@@ -107,16 +106,12 @@ public class TestGetFileName {
     }
 
     public static class DirectoryInfo {
-        @ApiModelProperty(value = "文件(夹)名称", example = "pgpool.log")
         private String name;
 
-        @ApiModelProperty(value = "文件类型", example = "file或者folder")
         private String type;
 
-        @ApiModelProperty(value = "文件绝对路径", example = "/h3coasis/local_volumes/h3c_logs/pgpool/pgpool.log")
         private String absolutePath;
 
-        @ApiModelProperty(value = "子目录，数据结构和父目录结构一致")
         private List<DirectoryInfo> children;
 
         public String getName() {
