@@ -27,7 +27,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
-import javax.xml.soap.*;
+//import javax.xml.soap.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

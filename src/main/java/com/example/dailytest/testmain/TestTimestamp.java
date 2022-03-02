@@ -3,8 +3,8 @@
  * <http://www.h3c.com/>
  * --------------------------------------------------------------------
  * Product      : NERV
- * Module Name  : TestGetHostnameAndIp
- * Date Created : 2022-02-22
+ * Module Name  : TestTimestamp
+ * Date Created : 2022-03-02
  * Creator      : w15021
  * Description  : xxx
  *
@@ -12,29 +12,24 @@
  * Modification History
  * DATE             NAME                DESCRIPTION
  * --------------------------------------------------------------------
- * 2022-02-22       w15021     xxx
+ * 2022-03-02       w15021     xxx
  * --------------------------------------------------------------------
  */
 
 package com.example.dailytest.testmain;
-import java.net.InetAddress;
-import java.util.Arrays;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  * @program: com.example.dailytest.testmain
  * @description: xxx
  * @author: w15021
- * @create: 2022-02-22
+ * @create: 2022-03-02
  **/
-public class TestGetHostnameAndIp {
-    public static void main(String[] args)
-            throws Exception {
-        InetAddress addr = InetAddress.getLocalHost();
-        System.out.println(addr);
-        System.out.println("Local HostAddress: "+addr.getHostAddress());
-                String hostname = addr.getHostName();
-        System.out.println("Local host name: "+hostname);
-
-        System.out.println(InetAddress.getLocalHost().getHostAddress());
+public class TestTimestamp {
+    public static void main(String[] args) {
+        Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+        String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));      // 时间戳转换成时间
+        System.out.println("格式化结果：" + sd);
     }
 }
