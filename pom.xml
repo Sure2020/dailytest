@@ -363,6 +363,12 @@
 		</dependency>
 		<!--引入第三方jar-用于获取文件的编码格式-->
 
+		<!--美化json并写入文件-->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-xc</artifactId>
+			<version>1.9.12</version>
+		</dependency>
 
 
 	</dependencies>

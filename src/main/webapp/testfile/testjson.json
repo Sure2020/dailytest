@@ -1,13 +1,13 @@
 {
-  "node": "192.168.56.170",
-  "local_disk": [{
-    "host": "192.168.56.170",
-    "devices": ["/dev/vdb"]
-  }],
-  "ipv4_white_port_tcp": ["22","1681","1882","1885","8090","10081","10443","14005"],
-  "ipv4_white_port_udp": ["1680","1682","1702","1983","3501","5683"],
-  "ipv6_white_port_tcp": [],
-  "ipv6_white_port_udp": [],
-  "ipv4_white_network_segment": [],
-  "ntpserver": ""
+  "ipv6_white_port_tcp" : [ ],
+  "ipv6_white_port_udp" : [ ],
+  "node" : "a",
+  "ipv4_white_network_segment" : [ ],
+  "ntpserver" : "",
+  "local_disk" : [ {
+    "devices" : [ "/dev/vdb" ],
+    "host" : "192.168.110.226"
+  } ],
+  "ipv4_white_port_tcp" : [ "22", "1681", "1882", "1885", "8090", "10081", "10443", "14005" ],
+  "ipv4_white_port_udp" : [ "1680", "1682", "1702", "1983", "3501", "5683" ]
 }

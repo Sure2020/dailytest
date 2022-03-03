@@ -18,15 +18,15 @@
 
 package com.example.dailytest.testmain;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import org.codehaus.jackson.map.ObjectMapper;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 //import net.sf.json.JSONArray;
 //import net.sf.json.JSONObject;
 
@@ -37,7 +37,7 @@ import java.io.PrintWriter;
  * @create: 2022-02-22
  **/
 public class TestReadJSONFile {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String path = "src/main/webapp/testfile/testjson.json";
         String jsonStr = readJsonFile(path);
 
@@ -50,7 +50,18 @@ public class TestReadJSONFile {
 
         String newJsonString = jsonObject.toString();
 
-        writeJsonFile(newJsonString, path);
+        //writeJsonFile(newJsonString, path);
+
+        // https://blog.csdn.net/zyf_balance/article/details/85691217
+        org.codehaus.jackson.map.ObjectMapper mapper = new ObjectMapper();
+        try {
+            System.out.println("Default JSON String:" + mapper.writeValueAsString(jsonObject));
+            System.out.println("formatted JSON String:" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        writeJsonFile(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject), path);
 
     }
     /**
@@ -90,4 +101,38 @@ public class TestReadJSONFile {
             e.printStackTrace();
         }
     }
+    /**
+     * 将JSON数据格式化并保存到文件中
+     * @param jsonData 需要输出的json数
+     * @param filePath 输出的文件地址
+     * @return
+     */
+    public static boolean createJsonFile(Object jsonData, String filePath) {
+        String content = JSON.toJSONString(jsonData, SerializerFeature.PrettyFormat, SerializerFeature.WriteMapNullValue,
+                SerializerFeature.WriteDateUseDateFormat);
+        // 标记文件生成是否成功
+        boolean flag = true;
+        // 生成json格式文件
+        try {
+            // 保证创建一个新文件
+            File file = new File(filePath);
+            if (!file.getParentFile().exists()) { // 如果父目录不存在，创建父目录
+                file.getParentFile().mkdirs();
+            }
+            if (file.exists()) { // 如果已存在,删除旧文件
+                file.delete();
+            }
+            file.createNewFile();
+            // 将格式化后的字符串写入文件
+            Writer write = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
+            write.write(content);
+            write.flush();
+            write.close();
+        } catch (Exception e) {
+            flag = false;
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
 }
