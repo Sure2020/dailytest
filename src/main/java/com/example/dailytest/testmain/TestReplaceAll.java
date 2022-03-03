@@ -40,6 +40,7 @@ public class TestReplaceAll {
         String urlAfterReplace = url.replace("\\d+\\.\\d+\\.\\d+\\.\\d+", "127.0.0.1");
         System.out.println(urlAfterReplace);
 
+        // 正则表达式匹配IP
         String ipRegex = "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}";
         String uri2 = url.replaceFirst(ipRegex, "vm222");
         System.out.println(uri2);
