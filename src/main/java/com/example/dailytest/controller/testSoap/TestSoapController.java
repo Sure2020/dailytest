@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.soap.SOAPException;
+//import javax.xml.soap.SOAPException;
 
 /**
  * @program: com.example.dailytest.controller
@@ -33,8 +33,8 @@ import javax.xml.soap.SOAPException;
 
 @RestController
 public class TestSoapController {
-    @RequestMapping("/test/soap")
+    /*@RequestMapping("/test/soap")
     public void testSoap () throws JAXBException, SOAPException {
-        //SOAPClient.main(null);
-    }
+        SOAPClient.main(null);
+    }*/
 }
