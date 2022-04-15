@@ -42,5 +42,8 @@ public class TestURL {
         URI uri = url.toURI();
         System.out.println(uri.getScheme());
         System.out.println(uri.getPort());
+
+        URL newURL = new URL("http", "vm107", 8080, "/iot/devops/file/length?absolutePath=?");
+        System.out.println(newURL.toString());
     }
 }

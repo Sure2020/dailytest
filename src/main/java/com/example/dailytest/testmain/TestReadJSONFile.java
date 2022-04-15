@@ -25,9 +25,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 //import net.sf.json.JSONArray;
 //import net.sf.json.JSONObject;
 
@@ -41,6 +39,9 @@ public class TestReadJSONFile {
     public static void main(String[] args) throws IOException {
         String path = "src/main/webapp/testfile/testjson_cluster.json";
         JSONArray ipList = (JSONArray) getInfoFromConfigFile("nodes", path);
+        Object object = getInfoFromConfigFile("ipv4_white_port_tcp", path);
+        System.out.println("object: " + object);
+        System.out.println(object instanceof List);//true
         for (Object nodeIPObject : ipList) {
             String nodeIPString = nodeIPObject.toString();
             System.out.println(nodeIPString);
