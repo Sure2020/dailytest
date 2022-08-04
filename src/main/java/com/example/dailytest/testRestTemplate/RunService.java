@@ -26,6 +26,7 @@ package com.example.dailytest.testRestTemplate;
  **/
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -37,6 +38,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Service
+//加上该注释后，就可以将该包下面的代码单独运行
+//@SpringBootApplication(scanBasePackages = {"com.example.dailytest.testRestTemplate"})
 public class RunService {
 
     @Autowired
@@ -47,7 +50,7 @@ public class RunService {
     private static String POST_PARAM_URL = "http://localhost:8080/testPostParam";
     private static String PUT_URL = "http://localhost:8080/testPut";
     private static String DEL_URL = "http://localhost:8080/testDel";*/
-    private static String GET_URL = "http://localhost:3333/";
+    private static String GET_URL = "https://192.168.110.26:10443/iot/devops/system/status/nodes";//"http://localhost:3333/";
     private static String POST_URL = "http://localhost:3333/";
     private static String POST_PARAM_URL = "http://localhost:3333/testPostParam";
     private static String PUT_URL = "http://localhost:3333/";

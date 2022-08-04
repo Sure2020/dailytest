@@ -28,6 +28,8 @@ import java.util.Date;
 public class TestTimestamp {
     public static void main(String[] args) {
         Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
+        System.out.println("原始：" + timeStamp);
+        System.out.println(timeStamp.toString().length());
         SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
         String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));      // 时间戳转换成时间
         System.out.println("格式化结果：" + sd);
