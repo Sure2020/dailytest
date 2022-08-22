@@ -19,7 +19,7 @@
 package com.example.dailytest.testmain;
 
 import com.alibaba.fastjson.JSONObject;
-import org.bson.Document;
+//import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ import java.util.List;
  * @create: 2020-09-22
  **/
 public class TestDocument {
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Document document = new Document();
         document.append("a","a");
         document.append("b","b");
@@ -61,5 +61,5 @@ public class TestDocument {
         List<Document> list3 = new ArrayList<>(list1);
         list1.remove(list3);
         System.out.println(list1);
-    }
+    }*/
 }

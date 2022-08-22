@@ -23,7 +23,7 @@ import com.github.alenfive.rocketapi.datasource.DataSourceManager;
 import com.github.alenfive.rocketapi.datasource.MongoDataSource;
 import com.github.alenfive.rocketapi.datasource.MySQLDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
+//import org.springframework.data.mongodb.core.MongoTemplate;
 //import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -56,14 +56,14 @@ public class DefaultDataSourceManager extends DataSourceManager {
 @Component
 public class DefaultDataSourceManager extends DataSourceManager {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+//    @Autowired
+//    private MongoTemplate mongoTemplate;
 
     @PostConstruct
     public void init() {
-        Map<String,DataSourceDialect> dialects = new HashMap<>();
+//        Map<String,DataSourceDialect> dialects = new HashMap<>();
         //dialects.put("mysql",new SqlDataSource(jdbcTemplate,false));
-        dialects.put("mongodb",new MongoDataSource(mongoTemplate,true));
-        super.setDialectMap(dialects);
+//        dialects.put("mongodb",new MongoDataSource(mongoTemplate,true));
+//        super.setDialectMap(dialects);
     }
 }

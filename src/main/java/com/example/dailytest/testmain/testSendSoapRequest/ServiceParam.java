@@ -1,13 +1,13 @@
 package com.example.dailytest.testmain.testSendSoapRequest;
 
 import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Document;
+//import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Data
-@Document(value = "serviceParam")
+//@Document(value = "serviceParam")
 public class ServiceParam implements Serializable {
     private String modId;
     private String svcIndex;

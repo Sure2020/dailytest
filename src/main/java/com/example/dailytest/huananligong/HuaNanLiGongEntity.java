@@ -19,10 +19,10 @@
 package com.example.dailytest.huananligong;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.dailytest.testMongoConnection.EntityForAggregationTest;
+//import com.example.dailytest.testMongoConnection.EntityForAggregationTest;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+//import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @program: com.example.dailytest.huananligong
@@ -32,7 +32,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  **/
 
 @Data
-@Document("huananligong")
+//@Document("huananligong")
 public class HuaNanLiGongEntity {
     @Id
     private String id;

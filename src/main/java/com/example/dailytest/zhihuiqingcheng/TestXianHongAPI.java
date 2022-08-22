@@ -27,10 +27,10 @@ import com.example.dailytest.testmain.testSendSoapRequest.HttpClientResult;
 import com.example.dailytest.utils.Constant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
+//import org.springframework.data.mongodb.core.MongoTemplate;
+//import org.springframework.data.mongodb.core.query.Criteria;
+//import org.springframework.data.mongodb.core.query.Query;
+//import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -45,8 +45,8 @@ import java.util.List;
 @Slf4j
 @Component
 public class TestXianHongAPI {
-    @Autowired
-    MongoTemplate mongoTemplate;
+    /*@Autowired
+    MongoTemplate mongoTemplate;*/
     //public static Object main(String[] args) {
     public JSONObject main(JSONObject jsonObject) {
         int equipTypeId = -1;
@@ -161,11 +161,11 @@ public class TestXianHongAPI {
                 continue;
             }
 
-            Query query = new Query();
-            Criteria c = Criteria.where("entityId").is(equipId)
-                    .and("modId").is("179b7aeedf204d1f862cd684e64064b9").and("attributes.deviceId").is(equipId);
-            Update update = new Update().set("attributes.fields", fieldsJSONArray);//.fields
-            mongoTemplate.upsert(query.addCriteria(c), update, InfoEntity.class);
+//            Query query = new Query();
+//            Criteria c = Criteria.where("entityId").is(equipId)
+//                    .and("modId").is("179b7aeedf204d1f862cd684e64064b9").and("attributes.deviceId").is(equipId);
+//            Update update = new Update().set("attributes.fields", fieldsJSONArray);//.fields
+//            mongoTemplate.upsert(query.addCriteria(c), update, InfoEntity.class);
 
             /*for (Object fieldsObject : fieldsJSONArray) {
                 if (fieldsObject == null) {
