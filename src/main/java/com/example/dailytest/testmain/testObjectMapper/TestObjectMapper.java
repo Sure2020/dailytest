@@ -40,6 +40,12 @@ public class TestObjectMapper {
             TestObjectMapperClass o = objectMapper.convertValue(jsonObject1,TestObjectMapperClass.class);//通过convertValue方法将object对象转换为相应实体对象
             System.out.println(o.toString());
         }
+        for (Object obj : jsonArray ) {
+            JSONObject jsonObj = (JSONObject) obj;
+            System.out.println(jsonObj.toString());
+            System.out.println(jsonObj.getString("id"));
+
+        }
         /*-----------------------------------
                 java将Object对象转换成实体类对象
         https://blog.51cto.com/u_15049782/4307941*/
